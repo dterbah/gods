@@ -1,6 +1,10 @@
 package arraylist
 
-import "errors"
+import (
+	"errors"
+
+	comparator "github.com/dterbah/gods/utils"
+)
 
 /*
 Struct that defines what is an ArrayList.
@@ -11,15 +15,16 @@ type ArrayList[T any] struct {
 	elements    []T
 	size        int
 	zeroElement T
+	comparator  comparator.Comparator[T]
 }
 
 // Constants
 const growCapacityFactor = float32(2.0)
 
 // Public methods
-func New[T any](values ...T) *ArrayList[T] {
+func New[T any](comparator comparator.Comparator[T]) *ArrayList[T] {
 	var zero T
-	list := &ArrayList[T]{zeroElement: zero}
+	list := &ArrayList[T]{zeroElement: zero, comparator: comparator}
 
 	return list
 }
@@ -53,16 +58,40 @@ func (list *ArrayList[T]) At(index int) (T, error) {
 }
 
 /*
+Check if the list is empty or not. Return true if it is empty, otherwise false
+*/
+func (list *ArrayList[T]) IsEmpty() bool {
+	return list.size == 0
+}
+
+/*
+Clear all the elements in the list. After a clear, the list is totally empty
+*/
+func (list *ArrayList[T]) Clear() {
+	list.elements = make([]T, int(growCapacityFactor))
+	list.size = 0
+}
+
+/*
+Return true if the list contains at least one occurence of the element, else false
+*/
+func (list *ArrayList[T]) Contains(element T) bool {
+	for _, currentElement := range list.elements[:list.size] {
+		if list.comparator(currentElement, element) {
+			return true
+		}
+	}
+
+	return false
+}
+
+/*
 *
 
 	Retrieve the list size
 */
 func (list *ArrayList[T]) Size() int {
 	return list.size
-}
-
-func (list *ArrayList[T]) IsEmpty() bool {
-	return list.size == 0
 }
 
 // Private methods

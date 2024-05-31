@@ -3,13 +3,14 @@ package arraylist
 import (
 	"testing"
 
+	comparator "github.com/dterbah/gods/utils"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestArrayList_Add(t *testing.T) {
 	assert := assert.New(t)
 
-	list := New[int]()
+	list := New[int](comparator.IntComparator)
 
 	list.Add(1, 2, 3)
 
@@ -29,7 +30,7 @@ func TestArrayList_Add(t *testing.T) {
 func TestArrayList_At(t *testing.T) {
 	assert := assert.New(t)
 
-	list := New[int]()
+	list := New[int](comparator.IntComparator)
 
 	list.Add(1, 2, 3)
 
@@ -50,9 +51,29 @@ func TestArrayList_At(t *testing.T) {
 	assert.NotEqual(err, nil)
 }
 
+func TestArrayList_Clear(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+
+	list.Add(10, 20, 50)
+	assert.False(list.IsEmpty())
+	list.Clear()
+	assert.True(list.IsEmpty())
+}
+
+func TestArrayListy_Contains(t *testing.T) {
+	assert := assert.New(t)
+
+	list := New[int](comparator.IntComparator)
+
+	list.Add(1, 2, 3)
+	assert.True(list.Contains(1))
+	assert.False(list.Contains(-190))
+}
+
 func TestArrayList_Size(t *testing.T) {
 	assert := assert.New(t)
-	list := New[int]()
+	list := New[int](comparator.IntComparator)
 	list.Add(1, 2, 3)
 	expectedSize := 3
 	assert.Equal(expectedSize, list.Size())
@@ -61,7 +82,7 @@ func TestArrayList_Size(t *testing.T) {
 func TestArrayList_IsEmpty(t *testing.T) {
 	assert := assert.New(t)
 
-	list := New[int]()
+	list := New[int](comparator.IntComparator)
 	assert.True(list.IsEmpty())
 	list.Add(1)
 	assert.False(list.IsEmpty())

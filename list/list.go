@@ -17,6 +17,11 @@ type List[T any] interface {
 	At(index int) (T, error)
 
 	/**
+	Clear all the content inside the list
+	*/
+	Clear()
+
+	/**
 	Retrieve the size of the list
 	*/
 	Size() int
@@ -25,4 +30,9 @@ type List[T any] interface {
 	Return true if the list has no elements, otherwise false
 	*/
 	IsEmpty() bool
+
+	/**
+	Return true if the list contains at list one occurence of the element, otherwise false
+	*/
+	Contains(element T) bool
 }
