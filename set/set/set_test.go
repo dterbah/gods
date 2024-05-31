@@ -43,3 +43,55 @@ func TestSet_Clear(t *testing.T) {
 
 	assert.Equal(0, set.Size())
 }
+
+func TestSet_Contains(t *testing.T) {
+	assert := assert.New(t)
+	set := New[int](comparator.IntComparator, 1, 3, 4)
+
+	assert.True(set.Contains(1))
+	assert.True(set.Contains(3))
+	assert.True(set.Contains(4))
+	assert.False(set.Contains(2))
+}
+
+func TestSet_Intersection(t *testing.T) {
+	assert := assert.New(t)
+	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
+	otherSet := New(comparator.IntComparator, 1, 2, 5, 6)
+
+	result := set.Intersection(otherSet)
+	expectedValues := []int{1, 2, 6}
+
+	assert.Equal(3, result.Size())
+
+	for _, element := range expectedValues {
+		assert.True(result.Contains(element))
+	}
+}
+
+func TestSet_IsEmpty(t *testing.T) {
+	assert := assert.New(t)
+
+	set := New[int](comparator.IntComparator)
+
+	assert.True(set.IsEmpty())
+
+	set.Add(1, 2)
+
+	assert.False(set.IsEmpty())
+}
+
+func TestSet_Union(t *testing.T) {
+	assert := assert.New(t)
+	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
+	otherSet := New(comparator.IntComparator, 1, 2, 5, 6)
+
+	result := set.Union(otherSet)
+	expectedValues := []int{3, 5, 9}
+
+	assert.Equal(3, result.Size())
+
+	for _, element := range expectedValues {
+		assert.True(result.Contains(element))
+	}
+}

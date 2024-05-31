@@ -93,6 +93,10 @@ func (list ArrayList[T]) Contains(element T) bool {
 	return false
 }
 
+/*
+*
+Create a copy of the current list
+*/
 func (list *ArrayList[T]) Copy() list.List[T] {
 	newList := New[T](list.comparator)
 
@@ -119,10 +123,27 @@ func (list *ArrayList[T]) Filter(callback func(element T) bool) list.List[T] {
 	return newList
 }
 
+/*
+Apply a function for each element of the list
+*/
 func (list *ArrayList[T]) ForEach(callback func(element T, index int)) {
 	for index, element := range list.elements[:list.size] {
 		callback(element, index)
 	}
+}
+
+/*
+Return the index in the list of the element (if the element exists in the list)
+If the element is not present in the list, the method will return -1
+*/
+func (list ArrayList[T]) IndexOf(element T) int {
+	for index, currentElement := range list.elements[:list.size] {
+		if list.comparator(currentElement, element) == 0 {
+			return index
+		}
+	}
+
+	return -1
 }
 
 /*
@@ -144,20 +165,6 @@ This method is used by sort.Sort to sort the list. It should not be call directl
 */
 func (list ArrayList[T]) Less(i, j int) bool {
 	return list.comparator(list.elements[i], list.elements[j]) == -1
-}
-
-/*
-Return the index in the list of the element (if the element exists in the list)
-If the element is not present in the list, the method will return -1
-*/
-func (list ArrayList[T]) IndexOf(element T) int {
-	for index, currentElement := range list.elements[:list.size] {
-		if list.comparator(currentElement, element) == 0 {
-			return index
-		}
-	}
-
-	return -1
 }
 
 /*

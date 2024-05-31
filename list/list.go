@@ -1,31 +1,17 @@
 package list
 
+import (
+	"github.com/dterbah/gods/collection"
+	"github.com/dterbah/gods/iterable"
+)
+
 /*
 This interface defines which functions could be used in a List.
 It defines features inspired by Javascript
 */
 type List[T any] interface {
-	/*
-		Add an element in the current List
-		@param element The element to add in the list
-	*/
-	Add(elements ...T)
-
-	/*
-		Retrieve an element by its index
-		The returned result is either the element at the index (if index < listSize), either nil
-	*/
-	At(index int) (T, error)
-
-	/*
-		Clear all the content inside the list
-	*/
-	Clear()
-
-	/*
-		Return true if the list contains at list one occurence of the element, otherwise false
-	*/
-	Contains(element T) bool
+	collection.Collection[T]
+	iterable.Iterable[T]
 
 	/*
 		Concat a list with the current one. The result is a new list with all elements
@@ -44,22 +30,6 @@ type List[T any] interface {
 	Filter(callback func(element T) bool) List[T]
 
 	/*
-		Call a function for each element of the list
-	*/
-	ForEach(callback func(element T, index int))
-
-	/*
-		Return the index in the list of the element (if the element exists in the list)
-		If the element is not present in the list, the method will return -1
-	*/
-	IndexOf(element T) int
-
-	/*
-		Return true if the list has no elements, otherwise false
-	*/
-	IsEmpty() bool
-
-	/*
 		Remove the element at the specified index in the list.
 		If the element is correctly removed, it will return true.
 		Otherwise, false
@@ -76,11 +46,6 @@ type List[T any] interface {
 		Reverse the elements inside the list
 	*/
 	Reverse()
-
-	/*
-		Retrieve the size of the list
-	*/
-	Size() int
 
 	/*
 		Check if at least one element matchs with the callback in parameter.

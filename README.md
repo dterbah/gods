@@ -60,10 +60,15 @@ import (
 )
 
 set := set.New[int](comparator.IntComparator, 1, 2, 3)
+set2 := set.New(comparator.IntComparator, 1, 2, 5, 6)
 set.Add(4) // [1, 2, 3, 4]
 set.Add(1) // [1, 2, 3, 4]
 set.Size() // 4
 set.At(0) // 1, nil
 set.At(-1) // 0, err
+set.Clear() // []
+set.Contains(1) // true
+set.Intersection(set2) // [1, 2]
+set.Union(set2) // [3, 5, 6]
 }
 ```
