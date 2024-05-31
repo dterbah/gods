@@ -2,6 +2,7 @@ package arraylist
 
 import (
 	"errors"
+	"sort"
 
 	comparator "github.com/dterbah/gods/utils"
 )
@@ -97,6 +98,26 @@ func (list *ArrayList[T]) Filter(callback func(element T) bool) *ArrayList[T] {
 	return newList
 }
 
+func (list *ArrayList[T]) ForEach(callback func(element T, index int)) {
+	for index, element := range list.elements[:list.size] {
+		callback(element, index)
+	}
+}
+
+/*
+Alias for the method Size and used for the sort. It shoud not be called directly
+*/
+func (list *ArrayList[T]) Len() int {
+	return list.size
+}
+
+/*
+This method is used by sort.Sort to sort the list. It should not be call directly
+*/
+func (list *ArrayList[T]) Less(i, j int) bool {
+	return list.comparator(list.elements[i], list.elements[j]) == -1
+}
+
 /*
 Return the index in the list of the element (if the element exists in the list)
 If the element is not present in the list, the method will return -1
@@ -148,13 +169,27 @@ func (list *ArrayList[T]) Size() int {
 	return list.size
 }
 
+func (list *ArrayList[T]) Sort() {
+	sort.Sort(list)
+}
+
+/*
+Swap two elements in the list. This method is used by the Sort method, it should not be called directly
+*/
+func (list *ArrayList[T]) Swap(i, j int) {
+	list.elements[i], list.elements[j] = list.elements[j], list.elements[i]
+}
+
 // Private methods
+
+// Resize the size of the list
 func (list *ArrayList[T]) resize(cap int) {
 	newElements := make([]T, cap)
 	copy(newElements, list.elements)
 	list.elements = newElements
 }
 
+// Grow the list
 func (list *ArrayList[T]) growIfNeeded(n int) {
 	currentCapacity := cap(list.elements)
 	if currentCapacity <= (list.size + n) {
@@ -165,7 +200,7 @@ func (list *ArrayList[T]) growIfNeeded(n int) {
 }
 
 /*
-Method used to knnow if an index is out of bounds the range of the list.
+Method used to know if an index is out of bounds the range of the list.
 To be true, the index should be < 0 or >= list size
 */
 func (list *ArrayList[T]) isOutOfBounds(index int) bool {

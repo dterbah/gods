@@ -106,6 +106,17 @@ func TestArrayList_IndexOf(t *testing.T) {
 	assert.Equal(expectedValue, index)
 }
 
+func TestArrayList_IsEmpty(t *testing.T) {
+	assert := assert.New(t)
+
+	list := New[int](comparator.IntComparator)
+	assert.True(list.IsEmpty())
+	list.Add(1)
+	assert.False(list.IsEmpty())
+	list.Add(2, 3, 4)
+	assert.False(list.IsEmpty())
+}
+
 func TestArrayList_RemoveAt(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
@@ -160,13 +171,17 @@ func TestArrayList_Size(t *testing.T) {
 	assert.Equal(expectedSize, list.Size())
 }
 
-func TestArrayList_IsEmpty(t *testing.T) {
+func TestArrayList_Sort(t *testing.T) {
 	assert := assert.New(t)
-
 	list := New[int](comparator.IntComparator)
-	assert.True(list.IsEmpty())
-	list.Add(1)
-	assert.False(list.IsEmpty())
-	list.Add(2, 3, 4)
-	assert.False(list.IsEmpty())
+
+	list.Add(3, 2, 1, 9, -1)
+	list.Sort()
+
+	expectedValues := []int{-1, 1, 2, 3, 9}
+
+	list.ForEach(func(element, index int) {
+		value, _ := list.At(index)
+		assert.Equal(expectedValues[index], value)
+	})
 }
