@@ -30,9 +30,7 @@ func New[T any](comparator comparator.Comparator[T]) *ArrayList[T] {
 }
 
 /*
-*
-
-	Add an element inside the list
+Add an element inside the list
 */
 func (list *ArrayList[T]) Add(elements ...T) {
 	list.growIfNeeded(len(elements))
@@ -44,13 +42,11 @@ func (list *ArrayList[T]) Add(elements ...T) {
 }
 
 /*
-*
-
-	Retrieve an element by its index
-	If the index is negative or greater than the list size, the method will return an error
+Retrieve an element by its index
+If the index is negative or greater than the list size, the method will return an error
 */
 func (list *ArrayList[T]) At(index int) (T, error) {
-	if index >= list.size || index < 0 {
+	if list.isOutOfBounds(index) {
 		return list.zeroElement, errors.New("index out of bound")
 	}
 
@@ -77,7 +73,7 @@ Return true if the list contains at least one occurence of the element, else fal
 */
 func (list *ArrayList[T]) Contains(element T) bool {
 	for _, currentElement := range list.elements[:list.size] {
-		if list.comparator(currentElement, element) {
+		if list.comparator(currentElement, element) == 0 {
 			return true
 		}
 	}
@@ -86,9 +82,67 @@ func (list *ArrayList[T]) Contains(element T) bool {
 }
 
 /*
-*
+Filter the list according to the specified callback passed in parameter.
+It will return a new List that match the filter
+*/
+func (list *ArrayList[T]) Filter(callback func(element T) bool) *ArrayList[T] {
+	newList := New[T](list.comparator)
 
-	Retrieve the list size
+	for _, element := range list.elements[:list.size] {
+		if callback(element) {
+			newList.Add(element)
+		}
+	}
+
+	return newList
+}
+
+/*
+Return the index in the list of the element (if the element exists in the list)
+If the element is not present in the list, the method will return -1
+*/
+func (list *ArrayList[T]) IndexOf(element T) int {
+	for index, currentElement := range list.elements[:list.size] {
+		if list.comparator(currentElement, element) == 0 {
+			return index
+		}
+	}
+
+	return -1
+}
+
+/*
+Remove the element at the specified index in the list.
+If the element is correctly removed, it will return true.
+Otherwise, false
+*/
+func (list *ArrayList[T]) RemoveAt(index int) bool {
+	if list.isOutOfBounds(index) {
+		return false
+	}
+
+	for rangeIndex := range list.elements[index:list.size] {
+		currentIndex := rangeIndex + index
+		list.elements[currentIndex] = list.elements[currentIndex+1]
+	}
+
+	list.size--
+
+	return true
+}
+
+func (list *ArrayList[T]) ReplaceAt(index int, element T) bool {
+	if list.isOutOfBounds(index) {
+		return false
+	}
+
+	list.elements[index] = element
+
+	return true
+}
+
+/*
+Retrieve the list size
 */
 func (list *ArrayList[T]) Size() int {
 	return list.size
@@ -108,4 +162,12 @@ func (list *ArrayList[T]) growIfNeeded(n int) {
 		newCapacity := int(growCapacityFactor * float32(currentCapacity+n))
 		list.resize(newCapacity)
 	}
+}
+
+/*
+Method used to knnow if an index is out of bounds the range of the list.
+To be true, the index should be < 0 or >= list size
+*/
+func (list *ArrayList[T]) isOutOfBounds(index int) bool {
+	return index < 0 || index >= list.size
 }

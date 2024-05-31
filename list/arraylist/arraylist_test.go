@@ -61,7 +61,7 @@ func TestArrayList_Clear(t *testing.T) {
 	assert.True(list.IsEmpty())
 }
 
-func TestArrayListy_Contains(t *testing.T) {
+func TestArrayList_Contains(t *testing.T) {
 	assert := assert.New(t)
 
 	list := New[int](comparator.IntComparator)
@@ -69,6 +69,87 @@ func TestArrayListy_Contains(t *testing.T) {
 	list.Add(1, 2, 3)
 	assert.True(list.Contains(1))
 	assert.False(list.Contains(-190))
+}
+
+func TestArrayList_Filter(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+
+	list.Add(1, 2, 3, 6)
+
+	newList := list.Filter(func(element int) bool {
+		// event number filtering
+		return element%2 == 0
+	})
+
+	assert.Equal(2, newList.Size())
+	value, _ := newList.At(0)
+
+	assert.Equal(2, value)
+
+	value, _ = newList.At(1)
+	assert.Equal(6, value)
+}
+
+func TestArrayList_IndexOf(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+
+	list.Add(1, 2, 3)
+
+	index := list.IndexOf(3)
+	expectedValue := 2
+	assert.Equal(expectedValue, index)
+
+	index = list.IndexOf(10)
+	expectedValue = -1
+	assert.Equal(expectedValue, index)
+}
+
+func TestArrayList_RemoveAt(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+
+	list.Add(1, 2, 3)
+
+	isRemoved := list.RemoveAt(1)
+	assert.True(isRemoved)
+	assert.Equal(2, list.size)
+	value, _ := list.At(1)
+	assert.Equal(value, 3)
+
+	isRemoved = list.RemoveAt(0)
+	assert.True(isRemoved)
+	assert.Equal(1, list.size)
+	value, _ = list.At(0)
+	assert.Equal(value, 3)
+
+	// index out of bound cases
+	isRemoved = list.RemoveAt(-1)
+	assert.False(isRemoved)
+
+	isRemoved = list.RemoveAt(1)
+	assert.False(isRemoved)
+}
+
+func TestArrayList_ReplaceAt(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+	expectedValue := 90
+
+	list.Add(1, 2, 3)
+	isReplaced := list.ReplaceAt(0, expectedValue)
+	value, _ := list.At(0)
+
+	assert.True(isReplaced)
+	assert.Equal(expectedValue, value)
+
+	// check replace with invalid values (negative and > list size)
+	isReplaced = list.ReplaceAt(-1, 0)
+	assert.False(isReplaced)
+
+	isReplaced = list.ReplaceAt(list.Size(), 90)
+	assert.False(isReplaced)
 }
 
 func TestArrayList_Size(t *testing.T) {
