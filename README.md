@@ -10,7 +10,8 @@ Here are a summary to access to some examples for each structures. Be free to ac
 1. [Installation](#installation)
 2. [List](#list)
    - [ArrayList](#arraylist)
-   - [Advanced Usage](#advanced-usage)
+3. [Set](#Set)
+   - [Basic Set](#basicset)
 
 # Installation
 
@@ -20,12 +21,14 @@ Here is the following command to install this library :
     go get github.com/dterbah/gods
 ```
 
-# ArrayList
+# List
+
+## ArrayList
 
 ```golang
 import (
 	comparator "github.com/dterbah/gods/utils"
-	"github.com/stretchr/testify/assert"
+    "github.com/dterbah/gods/list/arraylist"
 )
 
 list := arraylist.New[int](comparator.IntComparator)
@@ -43,5 +46,24 @@ list.some(func(element, index int) {
 }) // Return false
 list.Sort() // Content of the list : [-10, 1, 3, 5]
 list.SubList(1, 3) // Return [3, 5]
+}
+```
+
+# Set
+
+## BasicSet
+
+```golang
+import (
+	comparator "github.com/dterbah/gods/utils"
+    "github.com/dterbah/gods/set/set"
+)
+
+set := set.New[int](comparator.IntComparator, 1, 2, 3)
+set.Add(4) // [1, 2, 3, 4]
+set.Add(1) // [1, 2, 3, 4]
+set.Size() // 4
+set.At(0) // 1, nil
+set.At(-1) // 0, err
 }
 ```

@@ -24,10 +24,12 @@ type ArrayList[T any] struct {
 const growCapacityFactor = float32(2.0)
 
 // Public methods
-func New[T any](comparator comparator.Comparator[T]) *ArrayList[T] {
+func New[T any](comparator comparator.Comparator[T], elements ...T) *ArrayList[T] {
 	var zero T
 	list := &ArrayList[T]{zeroElement: zero, comparator: comparator}
-
+	for _, element := range elements {
+		list.Add(element)
+	}
 	return list
 }
 
@@ -272,4 +274,9 @@ To be true, the index should be < 0 or >= list size
 */
 func (list *ArrayList[T]) isOutOfBounds(index int) bool {
 	return index < 0 || index >= list.size
+}
+
+// Modules methods
+func From() {
+
 }
