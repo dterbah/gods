@@ -1,32 +1,34 @@
 package arraylist
 
 import (
-	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestArrayList_Add(t *testing.T) {
+	assert := assert.New(t)
+
 	list := New[int]()
 
 	list.Add(1, 2, 3)
-	expectedSize := 3
 
-	if list.size != 3 {
-		testError := fmt.Sprintf("Incorrect list size. Expected %d, Received %d", expectedSize, list.size)
-		t.Error(testError)
-	}
+	assert.Equal(3, list.size, "Incorrect list size. Expected 3, Received ", list.size)
 
 	for i, element := range list.elements[:list.size] {
 		expectedValue := i + 1
 
+		assert.Equal(expectedValue, element, "Incorrect")
+
 		if expectedValue != element {
-			testError := fmt.Sprintf("Incorrect value at the index %d. Expected %d, Recieved %d", i, expectedValue, element)
-			t.Error(testError)
+			assert.Equal(expectedValue, element, "Incorrect value at index ", i)
 		}
 	}
 }
 
 func TestArrayList_At(t *testing.T) {
+	assert := assert.New(t)
+
 	list := New[int]()
 
 	list.Add(1, 2, 3)
@@ -34,40 +36,35 @@ func TestArrayList_At(t *testing.T) {
 	expectedValue := 2
 	value, err := list.At(1)
 
-	if err != nil {
-		t.Error("The list shouldn't return any error")
-	}
-
-	if value != expectedValue {
-		testError := fmt.Sprintf("Value at index %d not correct. Expected %d, Recieved %d", 1, expectedValue, value)
-		t.Error(testError)
-	}
+	assert.Equal(err, nil, "The list shouldn't return any error")
+	assert.Equal(expectedValue, value)
 
 	// Test a value out of bounds
 	_, err = list.At(3)
 
-	if err == nil {
-		t.Error("The list should return an error because the index is out of bounds")
-	}
+	assert.NotEqual(err, nil)
 
 	// Test negative index
 	_, err = list.At(-1)
 
-	if err == nil {
-		t.Error("The list should return an error because the index is negative")
-	}
-
+	assert.NotEqual(err, nil)
 }
 
 func TestArrayList_Size(t *testing.T) {
+	assert := assert.New(t)
 	list := New[int]()
-
 	list.Add(1, 2, 3)
-
 	expectedSize := 3
+	assert.Equal(expectedSize, list.Size())
+}
 
-	if expectedSize != list.Size() {
-		testError := fmt.Sprintf("Incorrect list size. Expected %d, Received %d", expectedSize, list.Size())
-		t.Error(testError)
-	}
+func TestArrayList_IsEmpty(t *testing.T) {
+	assert := assert.New(t)
+
+	list := New[int]()
+	assert.True(list.IsEmpty())
+	list.Add(1)
+	assert.False(list.IsEmpty())
+	list.Add(2, 3, 4)
+	assert.False(list.IsEmpty())
 }

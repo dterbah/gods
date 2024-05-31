@@ -20,4 +20,9 @@ type List[T any] interface {
 	Retrieve the size of the list
 	*/
 	Size() int
+
+	/**
+	Return true if the list has no elements, otherwise false
+	*/
+	IsEmpty() bool
 }

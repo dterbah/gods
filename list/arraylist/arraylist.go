@@ -8,9 +8,9 @@ It will store all the elements inside a slice.
 The available methods of this structures wi
 */
 type ArrayList[T any] struct {
-	elements []T
-	size     int
-	empty    T
+	elements    []T
+	size        int
+	zeroElement T
 }
 
 // Constants
@@ -19,7 +19,7 @@ const growCapacityFactor = float32(2.0)
 // Public methods
 func New[T any](values ...T) *ArrayList[T] {
 	var zero T
-	list := &ArrayList[T]{empty: zero}
+	list := &ArrayList[T]{zeroElement: zero}
 
 	return list
 }
@@ -46,7 +46,7 @@ func (list *ArrayList[T]) Add(elements ...T) {
 */
 func (list *ArrayList[T]) At(index int) (T, error) {
 	if index >= list.size || index < 0 {
-		return list.empty, errors.New("index out of bound")
+		return list.zeroElement, errors.New("index out of bound")
 	}
 
 	return list.elements[index], nil
@@ -59,6 +59,10 @@ func (list *ArrayList[T]) At(index int) (T, error) {
 */
 func (list *ArrayList[T]) Size() int {
 	return list.size
+}
+
+func (list *ArrayList[T]) IsEmpty() bool {
+	return list.size == 0
 }
 
 // Private methods
