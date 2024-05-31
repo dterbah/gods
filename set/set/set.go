@@ -98,6 +98,18 @@ func (set *Set[T]) Copy() set.BasicSet[T] {
 	return newSet
 }
 
+func (set *Set[T]) Diff(otherSet set.BasicSet[T]) set.BasicSet[T] {
+	newSet := New(set.comparator)
+
+	set.ForEach(func(element T, index int) {
+		if !otherSet.Contains(element) {
+			newSet.Add(element)
+		}
+	})
+
+	return newSet
+}
+
 /*
 Apply a function for each element of the set
 */
@@ -111,6 +123,17 @@ If the element is not present in the set, the method will return -1
 */
 func (set *Set[T]) IndexOf(element T) int {
 	return set.elements.IndexOf(element)
+}
+
+func (set *Set[T]) IsSubset(otherSet set.BasicSet[T]) bool {
+	for i := 0; i < otherSet.Size(); i++ {
+		value, _ := otherSet.At(i)
+		if !set.Contains(value) {
+			return false
+		}
+	}
+
+	return true
 }
 
 /*

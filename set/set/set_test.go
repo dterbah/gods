@@ -54,6 +54,21 @@ func TestSet_Contains(t *testing.T) {
 	assert.False(set.Contains(2))
 }
 
+func TestSet_Diff(t *testing.T) {
+	assert := assert.New(t)
+	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
+	otherSet := New(comparator.IntComparator, 1, 2, 5, 6)
+
+	result := set.Diff(otherSet)
+	assert.Equal(2, result.Size())
+
+	expectedValues := []int{3, 9}
+
+	for _, element := range expectedValues {
+		assert.True(result.Contains(element))
+	}
+}
+
 func TestSet_Intersection(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
@@ -79,6 +94,18 @@ func TestSet_IsEmpty(t *testing.T) {
 	set.Add(1, 2)
 
 	assert.False(set.IsEmpty())
+}
+
+func TestSet_IsSubset(t *testing.T) {
+	assert := assert.New(t)
+	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
+	otherSet := New(comparator.IntComparator, 1, 2)
+
+	assert.True(set.IsSubset(otherSet))
+
+	set = New(comparator.IntComparator, 1)
+	assert.False(set.IsSubset(otherSet))
+
 }
 
 func TestSet_Union(t *testing.T) {

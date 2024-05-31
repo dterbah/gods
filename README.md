@@ -70,5 +70,7 @@ set.Clear() // []
 set.Contains(1) // true
 set.Intersection(set2) // [1, 2]
 set.Union(set2) // [3, 5, 6]
+set.Diff(set2) // [3]
+set.IsSubset(set2) // false
 }
 ```
