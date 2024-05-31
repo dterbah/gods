@@ -219,6 +219,28 @@ func (list *ArrayList[T]) Sort() {
 }
 
 /*
+Return a sublist according to the range [start:between].
+It will return the same list if the start and end are out of bounds
+(< 0 or >= list size), or if start > end
+*/
+func (list *ArrayList[T]) SubList(start, end int) list.List[T] {
+	if (start < 0 || start > list.size) || (end < 0 || end > list.size) {
+		return list
+	}
+
+	if start > end {
+		return list
+	}
+
+	newList := New[T](list.comparator)
+	for _, element := range list.elements[start:end] {
+		newList.Add(element)
+	}
+
+	return newList
+}
+
+/*
 Swap two elements in the list. This method is used by the Sort method, it should not be called directly
 */
 func (list *ArrayList[T]) Swap(i, j int) {

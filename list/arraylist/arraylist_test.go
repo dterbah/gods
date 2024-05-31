@@ -233,3 +233,30 @@ func TestArrayList_Sort(t *testing.T) {
 		assert.Equal(expectedValues[index], value)
 	})
 }
+
+func TestArrayList_SubList(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+
+	list.Add(1, 2, 3)
+
+	newList := list.SubList(1, 2)
+	assert.Equal(1, newList.Size())
+	value, _ := newList.At(0)
+	assert.Equal(2, value)
+
+	newList = list.SubList(0, 2)
+	assert.Equal(2, newList.Size())
+	value, _ = newList.At(0)
+	assert.Equal(1, value)
+
+	// Test with invalid values
+	newList = list.SubList(-1, 2)
+	assert.Equal(list, newList)
+
+	newList = list.SubList(0, 4)
+	assert.Equal(list, newList)
+
+	newList = list.SubList(3, 1)
+	assert.Equal(list, newList)
+}

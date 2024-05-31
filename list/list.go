@@ -83,7 +83,7 @@ type List[T any] interface {
 	Size() int
 
 	/*
-		Check if at least one element matchs with the callback in parameter
+		Check if at least one element matchs with the callback in parameter.
 	*/
 	Some(callback func(element T, index int) bool) bool
 
@@ -91,4 +91,9 @@ type List[T any] interface {
 		Sort the list
 	*/
 	Sort()
+
+	/*
+		Return a list with the elements between in the range of start:end
+	*/
+	SubList(start, end int) List[T]
 }
