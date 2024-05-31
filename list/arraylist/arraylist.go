@@ -4,6 +4,7 @@ import (
 	"errors"
 	"sort"
 
+	"github.com/dterbah/gods/list"
 	comparator "github.com/dterbah/gods/utils"
 )
 
@@ -46,19 +47,13 @@ func (list *ArrayList[T]) Add(elements ...T) {
 Retrieve an element by its index
 If the index is negative or greater than the list size, the method will return an error
 */
+
 func (list *ArrayList[T]) At(index int) (T, error) {
 	if list.isOutOfBounds(index) {
 		return list.zeroElement, errors.New("index out of bound")
 	}
 
 	return list.elements[index], nil
-}
-
-/*
-Check if the list is empty or not. Return true if it is empty, otherwise false
-*/
-func (list *ArrayList[T]) IsEmpty() bool {
-	return list.size == 0
 }
 
 /*
@@ -69,10 +64,24 @@ func (list *ArrayList[T]) Clear() {
 	list.size = 0
 }
 
+func (list *ArrayList[T]) Concat(elements list.List[T]) list.List[T] {
+	newList := New[T](list.comparator)
+
+	list.ForEach(func(element T, index int) {
+		newList.Add(element)
+	})
+
+	elements.ForEach(func(element T, index int) {
+		newList.Add(element)
+	})
+
+	return newList
+}
+
 /*
 Return true if the list contains at least one occurence of the element, else false
 */
-func (list *ArrayList[T]) Contains(element T) bool {
+func (list ArrayList[T]) Contains(element T) bool {
 	for _, currentElement := range list.elements[:list.size] {
 		if list.comparator(currentElement, element) == 0 {
 			return true
@@ -82,11 +91,21 @@ func (list *ArrayList[T]) Contains(element T) bool {
 	return false
 }
 
+func (list *ArrayList[T]) Copy() list.List[T] {
+	newList := New[T](list.comparator)
+
+	list.ForEach(func(element T, _ int) {
+		newList.Add(element)
+	})
+
+	return newList
+}
+
 /*
 Filter the list according to the specified callback passed in parameter.
 It will return a new List that match the filter
 */
-func (list *ArrayList[T]) Filter(callback func(element T) bool) *ArrayList[T] {
+func (list *ArrayList[T]) Filter(callback func(element T) bool) list.List[T] {
 	newList := New[T](list.comparator)
 
 	for _, element := range list.elements[:list.size] {
@@ -105,16 +124,23 @@ func (list *ArrayList[T]) ForEach(callback func(element T, index int)) {
 }
 
 /*
+Check if the list is empty or not. Return true if it is empty, otherwise false
+*/
+func (list ArrayList[T]) IsEmpty() bool {
+	return list.size == 0
+}
+
+/*
 Alias for the method Size and used for the sort. It shoud not be called directly
 */
-func (list *ArrayList[T]) Len() int {
+func (list ArrayList[T]) Len() int {
 	return list.size
 }
 
 /*
 This method is used by sort.Sort to sort the list. It should not be call directly
 */
-func (list *ArrayList[T]) Less(i, j int) bool {
+func (list ArrayList[T]) Less(i, j int) bool {
 	return list.comparator(list.elements[i], list.elements[j]) == -1
 }
 
@@ -122,7 +148,7 @@ func (list *ArrayList[T]) Less(i, j int) bool {
 Return the index in the list of the element (if the element exists in the list)
 If the element is not present in the list, the method will return -1
 */
-func (list *ArrayList[T]) IndexOf(element T) int {
+func (list ArrayList[T]) IndexOf(element T) int {
 	for index, currentElement := range list.elements[:list.size] {
 		if list.comparator(currentElement, element) == 0 {
 			return index
@@ -162,13 +188,32 @@ func (list *ArrayList[T]) ReplaceAt(index int, element T) bool {
 	return true
 }
 
+func (list *ArrayList[T]) Reverse() {
+	for i, j := 0, list.size-1; i < j; i, j = i+1, j-1 {
+		list.elements[i], list.elements[j] = list.elements[j], list.elements[i]
+	}
+}
+
 /*
 Retrieve the list size
 */
-func (list *ArrayList[T]) Size() int {
+func (list ArrayList[T]) Size() int {
 	return list.size
 }
 
+func (list *ArrayList[T]) Some(callback func(element T, index int) bool) bool {
+	result := false
+
+	for index, element := range list.elements[:list.size] {
+		result = result || callback(element, index)
+	}
+
+	return result
+}
+
+/*
+Sort the list
+*/
 func (list *ArrayList[T]) Sort() {
 	sort.Sort(list)
 }

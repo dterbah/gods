@@ -61,6 +61,25 @@ func TestArrayList_Clear(t *testing.T) {
 	assert.True(list.IsEmpty())
 }
 
+func TestArrayList_Concat(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+	list2 := New[int](comparator.IntComparator)
+
+	list.Add(1, 2, 3)
+	list2.Add(4, 5, 6)
+
+	expectedElements := []int{1, 2, 3, 4, 5, 6}
+
+	newList := list.Concat(list2)
+
+	assert.Equal(6, newList.Size())
+
+	newList.ForEach(func(element, index int) {
+		assert.Equal(expectedElements[index], element)
+	})
+}
+
 func TestArrayList_Contains(t *testing.T) {
 	assert := assert.New(t)
 
@@ -163,12 +182,41 @@ func TestArrayList_ReplaceAt(t *testing.T) {
 	assert.False(isReplaced)
 }
 
+func TestArrayList_Reverse(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+
+	list.Add(1, 2, 3)
+	list.Reverse()
+
+	expectedValues := []int{3, 2, 1}
+
+	list.ForEach(func(element, index int) {
+		value, _ := list.At(index)
+		assert.Equal(expectedValues[index], value)
+	})
+}
+
 func TestArrayList_Size(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 	list.Add(1, 2, 3)
 	expectedSize := 3
 	assert.Equal(expectedSize, list.Size())
+}
+
+func TestArrayList_Some(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+	list.Add(1, 2, 3)
+
+	assert.True(list.Some(func(element, index int) bool {
+		return element > 2
+	}))
+
+	assert.False(list.Some(func(element, index int) bool {
+		return element < 0
+	}))
 }
 
 func TestArrayList_Sort(t *testing.T) {

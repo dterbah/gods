@@ -1,7 +1,8 @@
 package list
 
 /*
-This interface defines which functions could be used in a Collection
+This interface defines which functions could be used in a List.
+It defines features inspired by Javascript
 */
 type List[T any] interface {
 	/*
@@ -25,6 +26,17 @@ type List[T any] interface {
 		Return true if the list contains at list one occurence of the element, otherwise false
 	*/
 	Contains(element T) bool
+
+	/*
+		Concat a list with the current one. The result is a new list with all elements
+		of the current list and the one passed in parameter
+	*/
+	Concat(list List[T]) List[T]
+
+	/*
+		Create a copy of the current list. It is only a shallow copy
+	*/
+	Copy() List[T]
 
 	/*
 		Filter the list according to the specified callback passed in parameter
@@ -61,9 +73,19 @@ type List[T any] interface {
 	ReplaceAt(index int, element T) bool
 
 	/*
+		Reverse the elements inside the list
+	*/
+	Reverse()
+
+	/*
 		Retrieve the size of the list
 	*/
 	Size() int
+
+	/*
+		Check if at least one element matchs with the callback in parameter
+	*/
+	Some(callback func(element T, index int) bool) bool
 
 	/*
 		Sort the list
