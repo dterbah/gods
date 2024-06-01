@@ -34,7 +34,7 @@ func New[T any](comparator comparator.Comparator[T], elements ...T) *ArrayList[T
 }
 
 /*
-Add an element inside the list
+Add elements at the end of the list
 */
 func (list *ArrayList[T]) Add(elements ...T) {
 	list.growIfNeeded(len(elements))
