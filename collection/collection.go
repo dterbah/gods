@@ -11,6 +11,18 @@ type Collection[T any] interface {
 	Add(elements ...T)
 
 	/*
+		Concat a list with the current one. The result is a new list with all elements
+		of the current list and the one passed in parameter
+	*/
+	AddAll(list Collection[T])
+
+	/*
+		Retrieve an element by its index
+		The returned result is either the element at the index (if index < listSize), either nil
+	*/
+	At(index int) (T, error)
+
+	/*
 		Clear all the content inside the list
 	*/
 	Clear()

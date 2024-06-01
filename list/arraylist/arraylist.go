@@ -4,6 +4,7 @@ import (
 	"errors"
 	"sort"
 
+	"github.com/dterbah/gods/collection"
 	"github.com/dterbah/gods/list"
 	comparator "github.com/dterbah/gods/utils"
 )
@@ -45,6 +46,13 @@ func (list *ArrayList[T]) Add(elements ...T) {
 	}
 }
 
+func (list *ArrayList[T]) AddAll(elements collection.Collection[T]) {
+	for i := 0; i < elements.Size(); i++ {
+		element, _ := elements.At(i)
+		list.Add(element)
+	}
+}
+
 /*
 Retrieve an element by its index
 If the index is negative or greater than the list size, the method will return an error
@@ -64,20 +72,6 @@ Clear all the elements in the list. After a clear, the list is totally empty
 func (list *ArrayList[T]) Clear() {
 	list.elements = make([]T, int(growCapacityFactor))
 	list.size = 0
-}
-
-func (list *ArrayList[T]) Concat(elements list.List[T]) list.List[T] {
-	newList := New[T](list.comparator)
-
-	list.ForEach(func(element T, index int) {
-		newList.Add(element)
-	})
-
-	elements.ForEach(func(element T, index int) {
-		newList.Add(element)
-	})
-
-	return newList
 }
 
 /*

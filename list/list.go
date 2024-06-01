@@ -14,12 +14,6 @@ type List[T any] interface {
 	iterable.Iterable[T]
 
 	/*
-		Concat a list with the current one. The result is a new list with all elements
-		of the current list and the one passed in parameter
-	*/
-	Concat(list List[T]) List[T]
-
-	/*
 		Create a copy of the current list. It is only a shallow copy
 	*/
 	Copy() List[T]

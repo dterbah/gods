@@ -39,3 +39,24 @@ func TestLinkedList_AtTest(t *testing.T) {
 	_, err = list.At(5)
 	assert.Nil(err)
 }
+
+func TestLinkedList_ClearTest(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator, 1, 2, 3)
+
+	list.Clear()
+
+	assert.Equal(0, list.Size())
+}
+
+func TestLinkedList_HeadTest(t *testing.T) {
+
+}
+
+func TestLinkedList_TailTest(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator, 1, 2, 3)
+	assert.Equal(3, list.Tail())
+	list.Add(5)
+	assert.Equal(5, list.Tail())
+}

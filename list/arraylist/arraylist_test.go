@@ -61,7 +61,7 @@ func TestArrayList_Clear(t *testing.T) {
 	assert.True(list.IsEmpty())
 }
 
-func TestArrayList_Concat(t *testing.T) {
+func TestArrayList_AddAll(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 	list2 := New[int](comparator.IntComparator)
@@ -71,11 +71,11 @@ func TestArrayList_Concat(t *testing.T) {
 
 	expectedElements := []int{1, 2, 3, 4, 5, 6}
 
-	newList := list.Concat(list2)
+	list.AddAll(list2)
 
-	assert.Equal(6, newList.Size())
+	assert.Equal(6, list.Size())
 
-	newList.ForEach(func(element, index int) {
+	list.ForEach(func(element, index int) {
 		assert.Equal(expectedElements[index], element)
 	})
 }
