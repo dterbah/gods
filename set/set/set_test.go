@@ -3,6 +3,8 @@ package set
 import (
 	"testing"
 
+	"github.com/dterbah/gods/collection"
+	"github.com/dterbah/gods/list/arraylist"
 	comparator "github.com/dterbah/gods/utils"
 	"github.com/stretchr/testify/assert"
 )
@@ -19,6 +21,23 @@ func TestSet_Add(t *testing.T) {
 	set.Add(1)
 
 	assert.Equal(3, set.Size())
+}
+
+func TestSet_AddAll(t *testing.T) {
+	assert := assert.New(t)
+	var collection collection.Collection[int] = arraylist.New(comparator.IntComparator, 5, 6)
+	set := New[int](comparator.IntComparator)
+	set.AddAll(collection)
+
+	assert.Equal(2, set.Size())
+
+	expectedElements := []int{5, 6}
+
+	for index, element := range expectedElements {
+		value, err := set.At(index)
+		assert.Nil(err)
+		assert.Equal(element, value)
+	}
 }
 
 func TestSet_At(t *testing.T) {

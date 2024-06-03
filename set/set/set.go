@@ -1,6 +1,7 @@
 package set
 
 import (
+	"github.com/dterbah/gods/collection"
 	"github.com/dterbah/gods/list"
 	"github.com/dterbah/gods/list/arraylist"
 	"github.com/dterbah/gods/set"
@@ -179,6 +180,13 @@ func (set *Set[T]) Union(otherSet set.BasicSet[T]) set.BasicSet[T] {
 	})
 
 	return newSet
+}
+
+func (set *Set[T]) AddAll(elements collection.Collection[T]) {
+	for i := 0; i < elements.Size(); i++ {
+		element, _ := elements.At(i)
+		set.Add(element)
+	}
 }
 
 /*
