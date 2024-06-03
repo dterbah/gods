@@ -164,6 +164,22 @@ func TestLinkedList_ReplaceAt(t *testing.T) {
 	assert.Equal(90, value)
 }
 
+func TestLinkedList_Reverse(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator, 1, 2, 3)
+
+	list.Reverse()
+
+	assert.Equal(3, list.size)
+	expectedValues := []int{3, 2, 1}
+
+	for index, element := range expectedValues {
+		value, err := list.At(index)
+		assert.Nil(err)
+		assert.Equal(element, value)
+	}
+}
+
 func TestLinkedList_TailTest(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3)

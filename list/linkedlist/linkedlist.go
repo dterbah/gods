@@ -98,6 +98,24 @@ func (list *LinkedList[T]) At(index int) (T, error) {
 	return currentNode.value, nil
 }
 
+func (list LinkedList[T]) nodeAt(index int) *Node[T] {
+	if list.isOutOfBound(index) {
+		return nil
+	}
+
+	if list.head == nil {
+		return nil
+	}
+
+	currentNode := list.head
+
+	for currentIndex := 0; currentIndex < index; currentIndex++ {
+		currentNode = currentNode.next
+	}
+
+	return currentNode
+}
+
 func (list *LinkedList[T]) Clear() {
 	list.head = nil
 	list.tail = nil
@@ -272,8 +290,23 @@ func (list *LinkedList[T]) ReplaceAt(index int, element T) bool {
 	return true
 }
 
-func (list LinkedList[T]) Reverse() {
+func (list *LinkedList[T]) Reverse() {
+	if list.head == nil {
+		return
+	}
 
+	newHead := newNode(list.tail.value)
+	var currentNode *Node[T] = newHead
+
+	for i := list.size - 2; i >= 0; i-- {
+		value, _ := list.At(i)
+		node := newNode(value)
+		currentNode.next = node
+		currentNode = node
+	}
+
+	list.tail = currentNode
+	list.head = newHead
 }
 
 func (list LinkedList[T]) Some(callback func(element T, index int) bool) bool {
