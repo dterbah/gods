@@ -44,6 +44,16 @@ func (set *Set[T]) Add(elements ...T) {
 }
 
 /*
+Add all elements present in the collection
+*/
+func (set *Set[T]) AddAll(elements collection.Collection[T]) {
+	for i := 0; i < elements.Size(); i++ {
+		element, _ := elements.At(i)
+		set.Add(element)
+	}
+}
+
+/*
 Retrieve an element by its index
 If the index is negative or greater than the set size, the method will return an error
 */
@@ -160,6 +170,10 @@ func (set *Set[T]) IsEmpty() bool {
 	return set.elements.IsEmpty()
 }
 
+func (set *Set[T]) Remove(element T) {
+	set.elements.Remove(element)
+}
+
 /*
 Compute the union between the current set and the one passed in parameter.
 The result is equivalent of A ∪ B
@@ -180,13 +194,6 @@ func (set *Set[T]) Union(otherSet set.BasicSet[T]) set.BasicSet[T] {
 	})
 
 	return newSet
-}
-
-func (set *Set[T]) AddAll(elements collection.Collection[T]) {
-	for i := 0; i < elements.Size(); i++ {
-		element, _ := elements.At(i)
-		set.Add(element)
-	}
 }
 
 /*

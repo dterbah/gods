@@ -38,6 +38,11 @@ type Collection[T any] interface {
 	IsEmpty() bool
 
 	/*
+		Remove specified element if it exists
+	*/
+	Remove(element T)
+
+	/*
 		Retrieve the size of the list
 	*/
 	Size() int

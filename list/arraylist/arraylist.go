@@ -105,7 +105,7 @@ func (list *ArrayList[T]) Copy() list.List[T] {
 Filter the list according to the specified callback passed in parameter.
 It will return a new List that match the filter
 */
-func (list *ArrayList[T]) Filter(callback func(element T) bool) list.List[T] {
+func (list ArrayList[T]) Filter(callback func(element T) bool) list.List[T] {
 	newList := New[T](list.comparator)
 
 	for _, element := range list.elements[:list.size] {
@@ -181,6 +181,23 @@ func (list *ArrayList[T]) RemoveAt(index int) bool {
 	return true
 }
 
+/*
+Remove specified element if it exist in the list
+*/
+func (list *ArrayList[T]) Remove(element T) {
+	index := 0
+	elementsRemoved := 0
+
+	for index < list.size {
+		if list.comparator(list.elements[index], element) == 0 {
+			list.RemoveAt(index)
+			elementsRemoved++
+		} else {
+			index++
+		}
+	}
+}
+
 func (list *ArrayList[T]) ReplaceAt(index int, element T) bool {
 	if list.isOutOfBounds(index) {
 		return false
@@ -204,7 +221,7 @@ func (list ArrayList[T]) Size() int {
 	return list.size
 }
 
-func (list *ArrayList[T]) Some(callback func(element T, index int) bool) bool {
+func (list ArrayList[T]) Some(callback func(element T, index int) bool) bool {
 	result := false
 
 	for index, element := range list.elements[:list.size] {

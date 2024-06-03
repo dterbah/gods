@@ -136,6 +136,16 @@ func TestArrayList_IsEmpty(t *testing.T) {
 	assert.False(list.IsEmpty())
 }
 
+func TestArryList_Remove(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+	list.Add(1, 2, 3)
+	list.Remove(1)
+	assert.Equal(2, list.Size())
+	list.Remove(4)
+	assert.Equal(2, list.Size())
+}
+
 func TestArrayList_RemoveAt(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
