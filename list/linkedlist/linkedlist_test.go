@@ -142,6 +142,28 @@ func TestLinkedTest_RemoveAt(t *testing.T) {
 	assert.Equal(2, list.Size())
 }
 
+func TestLinkedList_ReplaceAt(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator, 1, 2, 3, 1)
+
+	assert.False(list.ReplaceAt(-1, 1))
+	assert.True(list.ReplaceAt(0, 10))
+
+	value, err := list.At(0)
+	assert.Nil(err)
+	assert.Equal(10, value)
+
+	assert.True(list.ReplaceAt(2, 9))
+	value, err = list.At(2)
+	assert.Nil(err)
+	assert.Equal(9, value)
+
+	assert.True(list.ReplaceAt(3, 90))
+	value, err = list.At(3)
+	assert.Nil(err)
+	assert.Equal(90, value)
+}
+
 func TestLinkedList_TailTest(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3)

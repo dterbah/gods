@@ -263,8 +263,8 @@ func (list *LinkedList[T]) ReplaceAt(index int, element T) bool {
 	currentIndex := 0
 	node := list.head
 
-	for node = node; currentIndex != index; node = node.next {
-
+	for ; currentIndex != index; node = node.next {
+		currentIndex++
 	}
 
 	node.value = element
