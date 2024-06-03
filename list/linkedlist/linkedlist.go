@@ -189,6 +189,9 @@ func (list LinkedList[T]) IsEmpty() bool {
 	return list.head == nil && list.tail == nil
 }
 
+/*
+Remove the first occurence of element in the list
+*/
 func (list *LinkedList[T]) Remove(element T) {
 	if list.head == nil {
 		return
@@ -200,6 +203,9 @@ func (list *LinkedList[T]) Remove(element T) {
 			list.tail = nil
 		}
 		list.size--
+	}
+
+	if list.size == 0 {
 		return
 	}
 

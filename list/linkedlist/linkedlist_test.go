@@ -103,6 +103,45 @@ func TestLinkedList_IndexOf(t *testing.T) {
 	assert.Equal(-1, list.IndexOf(4))
 }
 
+func TestLinkedList_IsEmpty(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+
+	assert.True(list.IsEmpty())
+
+	list.Add(1)
+	assert.False(list.IsEmpty())
+}
+
+func TestLinkedList_Remove(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator, 1, 2, 3, 1)
+
+	list.Remove(1)
+	assert.Equal(2, list.size)
+
+	value, err := list.At(0)
+	assert.Nil(err)
+	assert.Equal(2, value)
+
+	value, err = list.At(1)
+	assert.Nil(err)
+	assert.Equal(3, value)
+
+	list.Remove(90)
+	assert.Equal(2, list.Size())
+}
+
+func TestLinkedTest_RemoveAt(t *testing.T) {
+	assert := assert.New(t)
+
+	list := New[int](comparator.IntComparator)
+	assert.False(list.RemoveAt(0))
+	list.Add(1, 2, 3)
+	assert.True(list.RemoveAt(0))
+	assert.Equal(2, list.Size())
+}
+
 func TestLinkedList_TailTest(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3)
