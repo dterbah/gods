@@ -148,13 +148,6 @@ func (list ArrayList[T]) IsEmpty() bool {
 }
 
 /*
-Alias for the method Size and used for the sort. It shoud not be called directly
-*/
-func (list ArrayList[T]) Len() int {
-	return list.size
-}
-
-/*
 This method is used by sort.Sort to sort the list. It should not be call directly
 */
 func (list ArrayList[T]) Less(i, j int) bool {

@@ -166,6 +166,11 @@ func TestArrayList_New(t *testing.T) {
 	}
 }
 
+func TestArrayList_Range(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 1, 2, 3)
+}
+
 func TestArryList_Remove(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
