@@ -90,6 +90,21 @@ func TestArrayList_Contains(t *testing.T) {
 	assert.False(list.Contains(-190))
 }
 
+func TestArrayLis_Copy(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator)
+
+	list.Add(1, 2, 3)
+
+	copy := list.Copy()
+
+	list.ForEach(func(element, index int) {
+		value, err := copy.At(index)
+		assert.Nil(err)
+		assert.Equal(element, value)
+	})
+}
+
 func TestArrayList_Filter(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
@@ -134,6 +149,21 @@ func TestArrayList_IsEmpty(t *testing.T) {
 	assert.False(list.IsEmpty())
 	list.Add(2, 3, 4)
 	assert.False(list.IsEmpty())
+}
+
+func TestArrayList_New(t *testing.T) {
+	assert := assert.New(t)
+
+	list := New(comparator.IntComparator, 1, 2, 3)
+	expectedValues := []int{1, 2, 3}
+
+	assert.Equal(3, list.Size())
+
+	for index, element := range expectedValues {
+		currentValue, err := list.At(index)
+		assert.Nil(err)
+		assert.Equal(element, currentValue)
+	}
 }
 
 func TestArryList_Remove(t *testing.T) {
