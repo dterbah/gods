@@ -73,6 +73,19 @@ func TestSet_Contains(t *testing.T) {
 	assert.False(set.Contains(2))
 }
 
+func TestSet_Copy(t *testing.T) {
+	assert := assert.New(t)
+	set := New(comparator.IntComparator, 1, 3)
+	copy := set.Copy()
+
+	assert.True(set.IsSubset(copy))
+	set.ForEach(func(element, index int) {
+		value, err := copy.At(index)
+		assert.Nil(err)
+		assert.Equal(element, value)
+	})
+}
+
 func TestSet_Diff(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
@@ -86,6 +99,15 @@ func TestSet_Diff(t *testing.T) {
 	for _, element := range expectedValues {
 		assert.True(result.Contains(element))
 	}
+}
+
+func TestSet_IndexOf(t *testing.T) {
+	assert := assert.New(t)
+	set := New(comparator.IntComparator, 1, 2, 3, 4)
+
+	assert.Equal(0, set.IndexOf(1))
+	assert.Equal(3, set.IndexOf(4))
+	assert.Equal(-1, set.IndexOf(9))
 }
 
 func TestSet_Intersection(t *testing.T) {
