@@ -126,6 +126,10 @@ func (list *ArrayList[T]) ForEach(callback func(element T, index int)) {
 	}
 }
 
+func (list ArrayList[T]) Index(i int) T {
+	return list.elements[i]
+}
+
 /*
 Return the index in the list of the element (if the element exists in the list)
 If the element is not present in the list, the method will return -1
@@ -145,6 +149,10 @@ Check if the list is empty or not. Return true if it is empty, otherwise false
 */
 func (list ArrayList[T]) IsEmpty() bool {
 	return list.size == 0
+}
+
+func (list ArrayList[T]) Len() int {
+	return list.size
 }
 
 /*

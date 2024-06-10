@@ -185,6 +185,11 @@ func (list *LinkedList[T]) Head() T {
 	}
 }
 
+func (list LinkedList[T]) Index(i int) T {
+	element, _ := list.At(i)
+	return element
+}
+
 /*
 Return the index of the specified element if present in the list.
 If not, return -1
@@ -205,6 +210,10 @@ func (list LinkedList[T]) IndexOf(element T) int {
 
 func (list LinkedList[T]) IsEmpty() bool {
 	return list.head == nil && list.tail == nil
+}
+
+func (list LinkedList[T]) Len() int {
+	return list.size
 }
 
 /*
