@@ -23,10 +23,6 @@ type List[T any] interface {
 	*/
 	Filter(callback func(element T) bool) List[T]
 
-	Len() int
-
-	Index(i int) T
-
 	/*
 		Remove the element at the specified index in the list.
 		If the element is correctly removed, it will return true.

@@ -128,10 +128,6 @@ func (set *Set[T]) ForEach(callback func(element T, index int)) {
 	set.elements.ForEach(callback)
 }
 
-func (set *Set[T]) Index(i int) T {
-	return set.elements.Index(i)
-}
-
 /*
 Return the index in the set of the element (if the element exists in the set)
 If the element is not present in the set, the method will return -1
@@ -172,10 +168,6 @@ Check if the set is empty or not. Return true if it is empty, otherwise false
 */
 func (set *Set[T]) IsEmpty() bool {
 	return set.elements.IsEmpty()
-}
-
-func (set Set[T]) Len() int {
-	return set.elements.Len()
 }
 
 func (set *Set[T]) Remove(element T) {
