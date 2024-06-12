@@ -15,6 +15,7 @@ Here are a summary to access to some examples for each structures. Be free to ac
    - [ArrayList](#arraylist)
    - [LinkedList](#linkedlist)
 3. [Set](#Set)
+4. [CircularBuffer](#circularbuffer)
 
 # Installation
 
@@ -118,4 +119,26 @@ set.Diff(set2) // {3}
 set.IsSubset(set2) // false
 set.Remove(1) // {2, 3, 4}
 }
+```
+
+## CircularBuffer
+
+```golang
+import (
+    "github.com/dterbah/gods/buffer/circular"
+)
+
+buffer := circular.New[int](2)
+buffer.Enqueue(1) // nil
+buffer.Enqueue(2) // nil
+buffer.Enqueue(3) // error
+
+buffer.IsFull() // true
+buffer.IsEmpty() // false
+
+buffer.Dequeue() // 1
+buffer.Dequeue() // 2
+buffer.Dequeue() // 3
+buffer.Dequeue() // (0, err)
+
 ```
