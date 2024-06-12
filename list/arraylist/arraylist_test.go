@@ -125,6 +125,15 @@ func TestArrayList_Filter(t *testing.T) {
 	assert.Equal(6, value)
 }
 
+func TestArrayList_Index(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator)
+
+	list.Add(1, 2, 3, 4)
+
+	assert.Equal(1, list.Index(0))
+}
+
 func TestArrayList_IndexOf(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
@@ -164,11 +173,6 @@ func TestArrayList_New(t *testing.T) {
 		assert.Nil(err)
 		assert.Equal(element, currentValue)
 	}
-}
-
-func TestArrayList_Range(t *testing.T) {
-	// assert := assert.New(t)
-	// list := New(comparator.IntComparator, 1, 2, 3)
 }
 
 func TestArryList_Remove(t *testing.T) {

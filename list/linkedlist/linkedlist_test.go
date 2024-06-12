@@ -3,6 +3,7 @@ package linkedlist
 import (
 	"testing"
 
+	"github.com/dterbah/gods/list/arraylist"
 	comparator "github.com/dterbah/gods/utils"
 	"github.com/stretchr/testify/assert"
 )
@@ -16,6 +17,22 @@ func TestLinkedList_AddTest(t *testing.T) {
 
 	assert.Equal(1, list.head.value)
 	assert.Equal(2, list.tail.value)
+}
+
+func TestLinkedList_AddAll(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 1, 2, 3)
+	list.AddAll(New(comparator.IntComparator, 4, 5, 6))
+
+	assert.Equal(6, list.Size())
+
+	expectedValues := []int{1, 2, 3, 4, 5, 6}
+
+	for index, element := range expectedValues {
+		value, err := list.At(index)
+		assert.Nil(err)
+		assert.Equal(element, value)
+	}
 }
 
 func TestLinkedList_AtTest(t *testing.T) {
@@ -37,6 +54,11 @@ func TestLinkedList_AtTest(t *testing.T) {
 	assert.NotNil(err)
 
 	_, err = list.At(5)
+	assert.NotNil(err)
+
+	// Empty list
+	list = New(comparator.IntComparator)
+	_, err = list.At(0)
 	assert.NotNil(err)
 }
 
@@ -71,6 +93,23 @@ func TestLinkedList_Filter(t *testing.T) {
 	value, err := newList.At(0)
 	assert.Nil(err)
 	assert.Equal(2, value)
+}
+
+func TestLinkedList_FromIterable(t *testing.T) {
+	assert := assert.New(t)
+	list := arraylist.New(comparator.IntComparator, 1, 2, 3)
+
+	linkedList := FromIterable[int](list, comparator.IntComparator)
+
+	assert.Equal(3, linkedList.Size())
+
+	expectedValues := []int{1, 2, 3}
+
+	for index, element := range expectedValues {
+		value, err := linkedList.At(index)
+		assert.Nil(err)
+		assert.Equal(element, value)
+	}
 }
 
 func TestLinkedList_HeadTest(t *testing.T) {
