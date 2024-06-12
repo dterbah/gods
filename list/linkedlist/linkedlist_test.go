@@ -218,6 +218,15 @@ func TestLinkedList_Remove(t *testing.T) {
 
 	list.Remove(90)
 	assert.Equal(2, list.Size())
+
+	list = New(comparator.IntComparator, 1, 2, 3, 4, 5)
+	list.Remove(3)
+	assert.Equal(4, list.Size())
+
+	expectedValues := []int{1, 2, 4, 5}
+	list.ForEach(func(element, index int) {
+		assert.Equal(expectedValues[index], element)
+	})
 }
 
 func TestLinkedTest_RemoveAt(t *testing.T) {
@@ -229,6 +238,14 @@ func TestLinkedTest_RemoveAt(t *testing.T) {
 	assert.True(list.RemoveAt(0))
 	assert.Equal(2, list.Size())
 
+	list = New(comparator.IntComparator, 1, 2, 3, 4, 5)
+	assert.True(list.RemoveAt(2))
+	assert.Equal(4, list.Size())
+
+	expectedValues := []int{1, 2, 4, 5}
+	list.ForEach(func(element, index int) {
+		assert.Equal(expectedValues[index], element)
+	})
 }
 
 func TestLinkedList_ReplaceAt(t *testing.T) {
@@ -267,6 +284,11 @@ func TestLinkedList_Reverse(t *testing.T) {
 		assert.Nil(err)
 		assert.Equal(element, value)
 	}
+
+	// empty list
+	list = New(comparator.IntComparator)
+	list.Reverse()
+	assert.Equal(0, list.Size())
 }
 
 func TestLinkedList_Some(t *testing.T) {
