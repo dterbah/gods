@@ -90,6 +90,17 @@ func TestArrayList_Contains(t *testing.T) {
 	assert.False(list.Contains(-190))
 }
 
+func TestArrayList_ContainsAll(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 1, 2, 3)
+
+	collection := New(comparator.IntComparator, 1, 2)
+
+	assert.True(list.ContainsAll(collection))
+	collection.Add(4, 5)
+	assert.False(list.ContainsAll(collection))
+}
+
 func TestArrayLis_Copy(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator)

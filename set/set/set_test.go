@@ -73,6 +73,18 @@ func TestSet_Contains(t *testing.T) {
 	assert.False(set.Contains(2))
 }
 
+func TestSet_ContainsAll(t *testing.T) {
+	assert := assert.New(t)
+	set := New(comparator.IntComparator, 1, 2, 3, 4)
+	collection := arraylist.New(comparator.IntComparator, 1, 2, 5)
+
+	assert.False(set.ContainsAll(collection))
+	assert.True(set.ContainsAll(set))
+
+	collection = arraylist.New(comparator.IntComparator, 1, 2)
+	assert.True(set.ContainsAll(collection))
+}
+
 func TestSet_Copy(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 3)

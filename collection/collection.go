@@ -33,6 +33,11 @@ type Collection[T any] interface {
 	Contains(element T) bool
 
 	/*
+		Return true if the list contains all the elements present in the otherCollection, otherwise false
+	*/
+	ContainsAll(otherCollection Collection[T]) bool
+
+	/*
 		Return true if the list has no elements, otherwise false
 	*/
 	IsEmpty() bool

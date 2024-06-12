@@ -59,7 +59,7 @@ func (set *Set[T]) AddAll(elements collection.Collection[T]) {
 Retrieve an element by its index
 If the index is negative or greater than the set size, the method will return an error
 */
-func (set *Set[T]) At(index int) (T, error) {
+func (set Set[T]) At(index int) (T, error) {
 	return set.elements.At(index)
 }
 
@@ -70,31 +70,22 @@ func (set *Set[T]) Clear() {
 	set.elements.Clear()
 }
 
-// func (set *Set[T]) Concat(elements list.List[T]) set.BasicSet[T] {
-// 	newSet := New[T](set.comparator)
-
-// 	elements.ForEach(func(element T, index int) {
-// 		newSet.Add(element)
-// 	})
-
-// 	set.elements.ForEach(func(element T, index int) {
-// 		newSet.Add(element)
-// 	})
-
-// 	return newSet
-// }
-
-// func (set *Set[T]) Filter(callback func(element T) bool) list.List[T] {
-// 	newSet := New[T](set.comparator)
-// 	newSet.elements = set.elements.Filter(callback)
-// 	return newSet
-// }
-
 /*
 Return true if the set contains at least one occurence of the element, else false
 */
-func (set *Set[T]) Contains(element T) bool {
+func (set Set[T]) Contains(element T) bool {
 	return set.elements.Contains(element)
+}
+
+func (set Set[T]) ContainsAll(collection collection.Collection[T]) bool {
+	for index := 0; index < collection.Size(); index++ {
+		value, _ := collection.At(index)
+		if !set.Contains(value) {
+			return false
+		}
+	}
+
+	return true
 }
 
 /*

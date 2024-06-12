@@ -88,6 +88,16 @@ func (list ArrayList[T]) Contains(element T) bool {
 	return false
 }
 
+func (list ArrayList[T]) ContainsAll(collection collection.Collection[T]) bool {
+	for index := 0; index < collection.Size(); index++ {
+		value, _ := collection.At(index)
+		if !list.Contains(value) {
+			return false
+		}
+	}
+	return true
+}
+
 /*
 *
 Create a copy of the current list

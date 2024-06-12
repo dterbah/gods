@@ -115,7 +115,7 @@ func (list *LinkedList[T]) Clear() {
 	list.size = 0
 }
 
-func (list *LinkedList[T]) Contains(element T) bool {
+func (list LinkedList[T]) Contains(element T) bool {
 	if list.head == nil {
 		return false
 	}
@@ -127,6 +127,17 @@ func (list *LinkedList[T]) Contains(element T) bool {
 	}
 
 	return false
+}
+
+func (list LinkedList[T]) ContainsAll(collection collection.Collection[T]) bool {
+	for index := 0; index < collection.Size(); index++ {
+		value, _ := collection.At(index)
+		if !list.Contains(value) {
+			return false
+		}
+	}
+
+	return true
 }
 
 func (list *LinkedList[T]) Copy() list.List[T] {
