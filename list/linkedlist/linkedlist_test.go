@@ -264,10 +264,55 @@ func TestLinkedList_Reverse(t *testing.T) {
 	}
 }
 
+func TestLinkedList_Some(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 1, 2, 3, 4)
+
+	hasEven := list.Some(func(element, index int) bool {
+		return element%2 == 0
+	})
+
+	assert.True(hasEven)
+
+	hasNegativeNumber := list.Some(func(element, index int) bool {
+		return element < 0
+	})
+
+	assert.False(hasNegativeNumber)
+}
+
+func TestLinkedList_SubList(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 1, 2, 3)
+
+	// error use case
+	subList := list.SubList(-1, -10)
+	assert.Equal(list, subList)
+
+	subList = list.SubList(1, 0)
+	assert.Equal(list, subList)
+
+	// normal cases
+	subList = list.SubList(1, 2)
+	assert.Equal(2, subList.Size())
+
+	value, err := subList.At(0)
+	assert.Nil(err)
+	assert.Equal(2, value)
+
+	value, err = subList.At(1)
+	assert.Nil(err)
+	assert.Equal(3, value)
+}
+
 func TestLinkedList_TailTest(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3)
 	assert.Equal(3, list.Tail())
 	list.Add(5)
 	assert.Equal(5, list.Tail())
+
+	// error case
+	list = New(comparator.IntComparator)
+	assert.Equal(0, list.Tail())
 }
