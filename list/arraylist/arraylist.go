@@ -2,6 +2,7 @@ package arraylist
 
 import (
 	"errors"
+	"fmt"
 	"sort"
 
 	"github.com/dterbah/gods/collection"
@@ -160,6 +161,19 @@ This method is used by sort.Sort to sort the list. It should not be call directl
 */
 func (list ArrayList[T]) Less(i, j int) bool {
 	return list.comparator(list.elements[i], list.elements[j]) == -1
+}
+
+func (list ArrayList[T]) Print() {
+	fmt.Print("[")
+
+	for index := 0; index < list.size; index++ {
+		fmt.Print(list.elements[index])
+		if index < list.size-1 {
+			fmt.Print(", ")
+		}
+	}
+
+	fmt.Println("]")
 }
 
 /*

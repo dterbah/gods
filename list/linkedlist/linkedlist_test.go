@@ -190,6 +190,11 @@ func TestLinkedList_nodeAt(t *testing.T) {
 	assert.Nil(node)
 }
 
+func TestLinkedList_Print(t *testing.T) {
+	list := New(comparator.IntComparator, 1, 2, 3)
+	list.Print()
+}
+
 func TestLinkedList_Remove(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
@@ -279,6 +284,16 @@ func TestLinkedList_Some(t *testing.T) {
 	})
 
 	assert.False(hasNegativeNumber)
+}
+
+func TestLinkedList_Sort(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 1, 4, 3, 2, 7, -1)
+	list.Sort()
+	expectedValues := []int{-1, 1, 2, 3, 4, 7}
+	list.ForEach(func(element, index int) {
+		assert.Equal(expectedValues[index], element)
+	})
 }
 
 func TestLinkedList_SubList(t *testing.T) {

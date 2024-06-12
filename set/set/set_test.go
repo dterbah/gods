@@ -149,6 +149,11 @@ func TestSet_IsSubset(t *testing.T) {
 
 }
 
+func TestSet_Print(t *testing.T) {
+	set := New(comparator.IntComparator, 1, 2, 3)
+	set.Print()
+}
+
 func TestSet_Remove(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)

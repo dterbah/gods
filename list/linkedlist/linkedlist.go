@@ -2,6 +2,7 @@ package linkedlist
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/dterbah/gods/collection"
 	"github.com/dterbah/gods/iterable"
@@ -199,6 +200,17 @@ func (list LinkedList[T]) IsEmpty() bool {
 	return list.head == nil && list.tail == nil
 }
 
+func (list LinkedList[T]) Print() {
+	fmt.Print("[")
+	for current := list.head; current != nil; current = current.next {
+		fmt.Print(current.value)
+		if current.next != nil {
+			fmt.Print(", ")
+		}
+	}
+	fmt.Println("]")
+}
+
 /*
 Remove the first occurence of element in the list
 */
@@ -310,8 +322,57 @@ func (list LinkedList[T]) Some(callback func(element T, index int) bool) bool {
 	return result
 }
 
-func (list *LinkedList[T]) Sort() {
+func splitList[T any](head *Node[T]) (*Node[T], *Node[T]) {
+	if head == nil || head.next == nil {
+		return head, nil
+	}
 
+	slow := head
+	fast := head
+	var prev *Node[T]
+
+	for fast != nil && fast.next != nil {
+		prev = slow
+		slow = slow.next
+		fast = fast.next.next
+	}
+
+	prev.next = nil // Couper la liste en deux moitiés
+
+	return head, slow
+}
+
+func mergeLists[T any](left *Node[T], right *Node[T], comparator comparator.Comparator[T]) *Node[T] {
+	if left == nil {
+		return right
+	}
+	if right == nil {
+		return left
+	}
+
+	if comparator(left.value, right.value) == -1 {
+		left.next = mergeLists(left.next, right, comparator)
+		return left
+	} else {
+		right.next = mergeLists(left, right.next, comparator)
+		return right
+	}
+}
+
+func mergeSort[T any](head *Node[T], comparator comparator.Comparator[T]) *Node[T] {
+	if head == nil || head.next == nil {
+		return head
+	}
+
+	left, right := splitList(head)
+	left = mergeSort(left, comparator)
+	right = mergeSort(right, comparator)
+
+	return mergeLists(left, right, comparator)
+}
+
+func (list *LinkedList[T]) Sort() {
+	list.head = mergeSort[T](list.head, list.comparator)
 }
 
 func (list *LinkedList[T]) SubList(start, end int) list.List[T] {

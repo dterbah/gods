@@ -43,6 +43,11 @@ type Collection[T any] interface {
 	Remove(element T)
 
 	/*
+		Print the collection on the console
+	*/
+	Print()
+
+	/*
 		Retrieve the size of the list
 	*/
 	Size() int

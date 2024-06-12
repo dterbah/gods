@@ -1,6 +1,8 @@
 package set
 
 import (
+	"fmt"
+
 	"github.com/dterbah/gods/collection"
 	"github.com/dterbah/gods/list"
 	"github.com/dterbah/gods/list/arraylist"
@@ -168,6 +170,19 @@ Check if the set is empty or not. Return true if it is empty, otherwise false
 */
 func (set *Set[T]) IsEmpty() bool {
 	return set.elements.IsEmpty()
+}
+
+func (set Set[T]) Print() {
+	fmt.Print("{")
+
+	set.elements.ForEach(func(element T, index int) {
+		fmt.Print(element)
+		if index < set.Size()-1 {
+			fmt.Print(", ")
+		}
+	})
+
+	fmt.Println("}")
 }
 
 func (set *Set[T]) Remove(element T) {
