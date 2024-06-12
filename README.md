@@ -5,6 +5,9 @@ Get ready to store and manipulate your data 📊.
 
 Here are a summary to access to some examples for each structures. Be free to access directly to the code in the folder `examples`.
 
+![CI](https://github.com/dterbah/gods/actions/workflows/go-test.yml/badge.svg)
+[![codecov](https://codecov.io/gh/dterbah/gods/branch/main/graph/badge.svg)](https://codecov.io/gh/dterbah/gods)
+
 # Table of Contents
 
 1. [Installation](#installation)
