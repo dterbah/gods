@@ -85,10 +85,6 @@ func (list *LinkedList[T]) At(index int) (T, error) {
 		return list.zeroElement, errors.New("index out of bounds")
 	}
 
-	if list.head == nil {
-		return list.zeroElement, errors.New("empty list")
-	}
-
 	currentNode := list.head
 
 	for currentIndex := 0; currentIndex < index; currentIndex++ {
@@ -100,10 +96,6 @@ func (list *LinkedList[T]) At(index int) (T, error) {
 
 func (list LinkedList[T]) nodeAt(index int) *Node[T] {
 	if list.isOutOfBound(index) {
-		return nil
-	}
-
-	if list.head == nil {
 		return nil
 	}
 
@@ -221,9 +213,6 @@ func (list *LinkedList[T]) Remove(element T) {
 			list.tail = nil
 		}
 		list.size--
-	}
-
-	if list.size == 0 {
 		return
 	}
 

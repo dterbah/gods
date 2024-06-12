@@ -78,6 +78,22 @@ func TestLinkedList_Contains(t *testing.T) {
 	assert.True(list.Contains(1))
 
 	assert.False(list.Contains(4))
+
+	// error case
+	list = New(comparator.IntComparator)
+	assert.False(list.Contains(10))
+}
+
+func TestLinkedList_Copy(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 1, 2, 3)
+
+	copy := list.Copy()
+	expectedValues := []int{1, 2, 3}
+
+	copy.ForEach(func(element, index int) {
+		assert.Equal(expectedValues[index], element)
+	})
 }
 
 func TestLinkedList_Filter(t *testing.T) {
@@ -93,6 +109,16 @@ func TestLinkedList_Filter(t *testing.T) {
 	value, err := newList.At(0)
 	assert.Nil(err)
 	assert.Equal(2, value)
+}
+
+func TestLinkedList_ForEach(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 1, 2, 3)
+	expectedValues := []int{1, 2, 3}
+
+	list.ForEach(func(element, index int) {
+		assert.Equal(expectedValues[index], element)
+	})
 }
 
 func TestLinkedList_FromIterable(t *testing.T) {
@@ -114,19 +140,13 @@ func TestLinkedList_FromIterable(t *testing.T) {
 
 func TestLinkedList_HeadTest(t *testing.T) {
 	assert := assert.New(t)
-	list := New[int](comparator.IntComparator, 1, 2, 3)
+	list := New[int](comparator.IntComparator)
+	head := list.Head()
+	assert.Equal(0, head)
 
-	index := list.IndexOf(1)
-	assert.Equal(0, index)
-	index = list.IndexOf(3)
-	assert.Equal(2, index)
+	list.Add(1, 2)
 
-	index = list.IndexOf(10)
-	assert.Equal(-1, index)
-
-	list = New(comparator.IntComparator)
-	index = list.IndexOf(9)
-	assert.Equal(-1, index)
+	assert.Equal(1, list.Head())
 }
 
 func TestLinkedList_IndexOf(t *testing.T) {
@@ -152,9 +172,33 @@ func TestLinkedList_IsEmpty(t *testing.T) {
 	assert.False(list.IsEmpty())
 }
 
+func TestLinkedList_nodeAt(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 1, 2, 3)
+
+	expectedValues := []int{1, 2, 3}
+
+	for index, element := range expectedValues {
+		node := list.nodeAt(index)
+		assert.Equal(element, node.value)
+	}
+
+	// Out of bounds use case
+	node := list.nodeAt(-1)
+	assert.Nil(node)
+	node = list.nodeAt(5)
+	assert.Nil(node)
+}
+
 func TestLinkedList_Remove(t *testing.T) {
 	assert := assert.New(t)
-	list := New[int](comparator.IntComparator, 1, 2, 3, 1)
+	list := New[int](comparator.IntComparator)
+	list.Remove(1)
+	list.Add(1)
+	list.Remove(1)
+	assert.Equal(0, list.Size())
+
+	list.Add(1, 2, 3)
 
 	list.Remove(1)
 	assert.Equal(2, list.size)
@@ -179,6 +223,7 @@ func TestLinkedTest_RemoveAt(t *testing.T) {
 	list.Add(1, 2, 3)
 	assert.True(list.RemoveAt(0))
 	assert.Equal(2, list.Size())
+
 }
 
 func TestLinkedList_ReplaceAt(t *testing.T) {
