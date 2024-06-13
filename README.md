@@ -16,6 +16,7 @@ Here are a summary to access to some examples for each structures. Be free to ac
    - [LinkedList](#linkedlist)
 3. [Set](#Set)
 4. [CircularBuffer](#circularbuffer)
+5. [Queue](#queue)
 
 # Installation
 
@@ -140,5 +141,24 @@ buffer.Dequeue() // 1
 buffer.Dequeue() // 2
 buffer.Dequeue() // 3
 buffer.Dequeue() // (0, err)
+
+```
+
+## Queue
+
+```golang
+import (
+    "github.com/dterbah/gods/queue"
+)
+
+queue := queue.New[int]()
+queue.Enqueue(1) // [1]
+queue.Dequeue() // 1, nil
+queue.Dequeue() // 0, error !
+queue.isEmpty() // True
+queue.Enqueue(1, 2, 3)
+queue.Size() // 3
+queue.Peek() // 1, nil
+queue.Clear() // []
 
 ```
