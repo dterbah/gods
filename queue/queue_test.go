@@ -3,12 +3,13 @@ package queue
 import (
 	"testing"
 
+	comparator "github.com/dterbah/gods/utils"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestQueue_Clear(t *testing.T) {
 	assert := assert.New(t)
-	queue := New[int]()
+	queue := New[int](comparator.IntComparator)
 
 	queue.Enqueue(1, 2, 3)
 	queue.Clear()
@@ -16,9 +17,21 @@ func TestQueue_Clear(t *testing.T) {
 	assert.True(queue.IsEmpty())
 }
 
+func TestQueue_Contains(t *testing.T) {
+	assert := assert.New(t)
+	queue := New[int](comparator.IntComparator)
+
+	queue.Enqueue(1, 2, 3)
+	assert.True(queue.Contains(1))
+	assert.True(queue.Contains(2))
+	assert.True(queue.Contains(3))
+	assert.False(queue.Contains(4))
+
+}
+
 func TestQueue_Dequeue(t *testing.T) {
 	assert := assert.New(t)
-	queue := New[int]()
+	queue := New[int](comparator.IntComparator)
 
 	queue.Enqueue(1, 2, 3, 4)
 	expectedValues := []int{1, 2, 3, 4}
@@ -35,7 +48,7 @@ func TestQueue_Dequeue(t *testing.T) {
 
 func TestQueue_Enqueue(t *testing.T) {
 	assert := assert.New(t)
-	queue := New[int]()
+	queue := New[int](comparator.IntComparator)
 
 	queue.Enqueue(1, 2, 3, 4)
 
@@ -50,7 +63,7 @@ func TestQueue_Enqueue(t *testing.T) {
 
 func TestQueue_IsEmpty(t *testing.T) {
 	assert := assert.New(t)
-	queue := New[int]()
+	queue := New[int](comparator.IntComparator)
 	assert.True(queue.IsEmpty())
 	queue.Enqueue(1, 2)
 	assert.False(queue.IsEmpty())
@@ -62,7 +75,7 @@ func TestQueue_IsEmpty(t *testing.T) {
 
 func TestQueue_Peek(t *testing.T) {
 	assert := assert.New(t)
-	queue := New[int]()
+	queue := New[int](comparator.IntComparator)
 
 	_, err := queue.Peek()
 	assert.NotNil(err)
@@ -75,7 +88,7 @@ func TestQueue_Peek(t *testing.T) {
 
 func TestQueue_Size(t *testing.T) {
 	assert := assert.New(t)
-	queue := New[int]()
+	queue := New[int](comparator.IntComparator)
 	assert.Equal(0, queue.Size())
 	queue.Enqueue(1, 2, 4)
 	assert.Equal(3, queue.Size())

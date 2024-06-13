@@ -157,6 +157,7 @@ queue.Dequeue() // 1, nil
 queue.Dequeue() // 0, error !
 queue.isEmpty() // True
 queue.Enqueue(1, 2, 3)
+queue.Contains(1) // true
 queue.Size() // 3
 queue.Peek() // 1, nil
 queue.Clear() // []

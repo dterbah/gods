@@ -2,6 +2,8 @@ package queue
 
 import (
 	"errors"
+
+	comparator "github.com/dterbah/gods/utils"
 )
 
 /*
@@ -13,14 +15,15 @@ type Queue[T any] struct {
 	elements    []T
 	size        int
 	zeroElement T
+	comparator  comparator.Comparator[T]
 }
 
 /*
 Create a new Queue
 */
-func New[T any]() *Queue[T] {
+func New[T any](comparator comparator.Comparator[T]) *Queue[T] {
 	var zero T
-	return &Queue[T]{elements: []T{}, zeroElement: zero}
+	return &Queue[T]{elements: []T{}, zeroElement: zero, comparator: comparator}
 }
 
 /*
@@ -29,6 +32,19 @@ Remove all the elements of the queue
 func (queue *Queue[T]) Clear() {
 	queue.size = 0
 	queue.elements = []T{}
+}
+
+/*
+Return true if the element is present inside the Queue, else false
+*/
+func (queue Queue[T]) Contains(element T) bool {
+	for _, value := range queue.elements[:queue.size] {
+		if queue.comparator(value, element) == 0 {
+			return true
+		}
+	}
+
+	return false
 }
 
 /*
