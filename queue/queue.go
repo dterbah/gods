@@ -2,6 +2,7 @@ package queue
 
 import (
 	"errors"
+	"fmt"
 
 	comparator "github.com/dterbah/gods/utils"
 )
@@ -32,6 +33,19 @@ Remove all the elements of the queue
 func (queue *Queue[T]) Clear() {
 	queue.size = 0
 	queue.elements = []T{}
+}
+
+/*
+Create a copy of the current Queue
+*/
+func (queue Queue[T]) Copy() *Queue[T] {
+	newQueue := New[T](queue.comparator)
+
+	queue.ForEach(func(element T, index int) {
+		newQueue.Enqueue(element)
+	})
+
+	return newQueue
 }
 
 /*
@@ -73,6 +87,15 @@ func (queue *Queue[T]) Dequeue() (T, error) {
 }
 
 /*
+Call a function for each element in the queue
+*/
+func (queue Queue[T]) ForEach(callback func(element T, index int)) {
+	for index, element := range queue.elements[:queue.size] {
+		callback(element, index)
+	}
+}
+
+/*
 Return true if no element is present in the Queue, else false
 */
 func (queue Queue[T]) IsEmpty() bool {
@@ -85,6 +108,19 @@ func (queue Queue[T]) Peek() (T, error) {
 	}
 
 	return queue.elements[0], nil
+}
+
+func (queue Queue[T]) Print() {
+	fmt.Print("[")
+
+	queue.ForEach(func(element T, index int) {
+		fmt.Print(element)
+		if index < queue.size-1 {
+			fmt.Print(", ")
+		}
+	})
+
+	fmt.Println("]")
 }
 
 /*
