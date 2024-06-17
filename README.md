@@ -7,6 +7,7 @@ Here are a summary to access to some examples for each structures. Be free to ac
 
 ![CI](https://github.com/dterbah/gods/actions/workflows/go-test.yml/badge.svg)
 [![codecov](https://codecov.io/gh/dterbah/gods/branch/main/graph/badge.svg)](https://codecov.io/gh/dterbah/gods)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dterbah_gods&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dterbah_gods)
 
 # Table of Contents
 
