@@ -7,7 +7,10 @@ Here are a summary to access to some examples for each structures. Be free to ac
 
 ![CI](https://github.com/dterbah/gods/actions/workflows/go-test.yml/badge.svg)
 [![codecov](https://codecov.io/gh/dterbah/gods/branch/main/graph/badge.svg)](https://codecov.io/gh/dterbah/gods)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dterbah_gods&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dterbah_gods)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=dterbah_gods&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=dterbah_gods)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=dterbah_gods&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=dterbah_gods)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=dterbah_gods&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=dterbah_gods)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=dterbah_gods&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=dterbah_gods)
 
 # Table of Contents
 
