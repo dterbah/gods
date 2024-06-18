@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/dterbah/gods/iterable"
 	comparator "github.com/dterbah/gods/utils"
 )
 
@@ -93,6 +94,16 @@ func (queue Queue[T]) ForEach(callback func(element T, index int)) {
 	for index, element := range queue.elements[:queue.size] {
 		callback(element, index)
 	}
+}
+
+func FromIterable[T any](iterable iterable.Iterable[T], comparator comparator.Comparator[T]) *Queue[T] {
+	queue := New(comparator)
+
+	iterable.ForEach(func(element T, index int) {
+		queue.Enqueue(element)
+	})
+
+	return queue
 }
 
 /*

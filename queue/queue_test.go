@@ -3,6 +3,7 @@ package queue
 import (
 	"testing"
 
+	"github.com/dterbah/gods/list/arraylist"
 	comparator "github.com/dterbah/gods/utils"
 	"github.com/stretchr/testify/assert"
 )
@@ -84,6 +85,19 @@ func TestQueue_ForEach(t *testing.T) {
 	queue.ForEach(func(element, index int) {
 		assert.Equal(expectedValues[index], element)
 	})
+}
+
+func TestQueue_FromIterable(t *testing.T) {
+	assert := assert.New(t)
+	values := []int{1, 2, 3}
+	list := arraylist.New(comparator.IntComparator, values...)
+	queue := FromIterable(list, comparator.IntComparator)
+
+	assert.Equal(3, queue.Size())
+
+	for _, value := range values {
+		assert.True(queue.Contains(value))
+	}
 }
 
 func TestQueue_IsEmpty(t *testing.T) {

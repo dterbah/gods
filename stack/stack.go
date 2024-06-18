@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/dterbah/gods/iterable"
 	comparator "github.com/dterbah/gods/utils"
 )
 
@@ -35,6 +36,16 @@ func (stack *Stack[T]) Clear() {
 	stack.size = 0
 }
 
+func (stack Stack[T]) Copy() *Stack[T] {
+	newStack := New(stack.comparator)
+
+	stack.ForEach(func(element T, index int) {
+		newStack.Push(element)
+	})
+
+	return newStack
+}
+
 /*
 Returns true if the stack contains the specified element,
 else false
@@ -50,19 +61,32 @@ func (stack Stack[T]) Contains(element T) bool {
 }
 
 /*
+Call a function for each element in the queue
+*/
+func (stack Stack[T]) ForEach(callback func(element T, index int)) {
+	for index, element := range stack.elements[:stack.size] {
+		callback(element, index)
+	}
+}
+
+/*
+Create a stack from an iterable
+*/
+func FromIterable[T any](iterable iterable.Iterable[T], comparator comparator.Comparator[T]) *Stack[T] {
+	stack := New(comparator)
+
+	iterable.ForEach(func(element T, index int) {
+		stack.Push(element)
+	})
+
+	return stack
+}
+
+/*
 Return true if the stack is empty, else false
 */
 func (stack Stack[T]) IsEmpty() bool {
 	return stack.size == 0
-}
-
-/*
-Call a function for each element in the queue
-*/
-func (queue Stack[T]) ForEach(callback func(element T, index int)) {
-	for index, element := range queue.elements[:queue.size] {
-		callback(element, index)
-	}
 }
 
 /*
@@ -135,9 +159,5 @@ func (stack *Stack[T]) growIfNeeded(n int) {
 }
 
 func (stack *Stack[T]) shiftElements() {
-	for index := range stack.elements[:stack.size] {
-		stack.elements[index] = stack.elements[index+1]
-	}
-
 	stack.size--
 }

@@ -3,6 +3,7 @@ package stack
 import (
 	"testing"
 
+	"github.com/dterbah/gods/list/arraylist"
 	comparator "github.com/dterbah/gods/utils"
 	"github.com/stretchr/testify/assert"
 )
@@ -13,6 +14,37 @@ func TestStack_Clear(t *testing.T) {
 	stack.Push(1, 2, 3)
 	stack.Clear()
 	assert.True(stack.IsEmpty())
+}
+
+func TestStack_Copy(t *testing.T) {
+	assert := assert.New(t)
+	stack := New(comparator.IntComparator)
+	stack.Push(1, 2, 3)
+
+	newStack := stack.Copy()
+	assert.Equal(3, newStack.Size())
+
+	values := []int{3, 2, 1}
+
+	for _, value := range values {
+		currentValue, err := stack.Pop()
+		assert.Nil(err)
+		assert.Equal(value, currentValue)
+	}
+}
+
+func TestStack_FromIterable(t *testing.T) {
+	assert := assert.New(t)
+	list := arraylist.New(comparator.IntComparator, 1, 2, 3)
+	stack := FromIterable(list, comparator.IntComparator)
+
+	assert.Equal(3, stack.Size())
+
+	values := []int{1, 2, 3}
+
+	for _, value := range values {
+		assert.True(stack.Contains(value))
+	}
 }
 
 func TestStack_Push(t *testing.T) {
