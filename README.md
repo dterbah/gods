@@ -63,7 +63,6 @@ list.Some(func(element, index int) {
     return element > 4
 }) // true
 list.Sort() // [-10, 1, 3, 5]
-}
 ```
 
 ## LinkedList
@@ -96,7 +95,6 @@ list.Some(func(element, index int) {
     return element > 4
 }) // true
 list.Sort() // [-10, 1, 3, 5]
-}
 ```
 
 # Set
@@ -124,7 +122,6 @@ set.Union(set2) // {3, 5, 6}
 set.Diff(set2) // {3}
 set.IsSubset(set2) // false
 set.Remove(1) // {2, 3, 4}
-}
 ```
 
 ## CircularBuffer
@@ -146,7 +143,6 @@ buffer.Dequeue() // 1
 buffer.Dequeue() // 2
 buffer.Dequeue() // 3
 buffer.Dequeue() // (0, err)
-
 ```
 
 ## Queue
@@ -171,7 +167,6 @@ queue.Peek() // 1, nil
 queue.Clear() // []
 list := arraylist.New(comparator.IntComparator, 6, 7, 8)
 queue = queue.FromIterable(list, comparator.IntComparator) // [6, 7, 8]
-
 ```
 
 ## Stack
@@ -195,5 +190,4 @@ stack.Clear() // []
 
 list := arraylist.New(comparator.IntComparator, 6, 7, 8)
 stack = stack.FromIterable(list, comparator.IntComparator) // [6, 7, 8]
-
 ```
