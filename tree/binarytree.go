@@ -7,9 +7,10 @@ import (
 )
 
 type Node[T any] struct {
-	left  *Node[T]
-	right *Node[T]
-	value T
+	left   *Node[T]
+	right  *Node[T]
+	parent *Node[T]
+	value  T
 }
 
 /*
@@ -21,11 +22,97 @@ type BinaryTree[T any] struct {
 	zeroValue  T
 }
 
+type BinaryTreeIterator[T any] struct {
+	zeroValue   T
+	currentNode *Node[T]
+}
+
+// ---- BinaryTreeIterator API ---- //
+func newIterator[T any](tree BinaryTree[T]) *BinaryTreeIterator[T] {
+	return &BinaryTreeIterator[T]{currentNode: tree.root, zeroValue: tree.zeroValue}
+}
+
+/*
+Return true if the current node of the iterator has a right node, else false
+*/
+func (iterator BinaryTreeIterator[T]) HasRight() bool {
+	return iterator.currentNode != nil && iterator.currentNode.right != nil
+}
+
+/*
+Return true if the current node of the iterator has a left node, else false
+*/
+func (iterator BinaryTreeIterator[T]) HasLeft() bool {
+	return iterator.currentNode != nil && iterator.currentNode.left != nil
+}
+
+/*
+Return true if the current node of the iterator has a prent, else false
+*/
+func (iterator BinaryTreeIterator[T]) HasParent() bool {
+	return iterator.currentNode != nil && iterator.currentNode.parent != nil
+}
+
+/*
+Return the left value of the current node of the iterator. The iterator
+will automatically move to the left element
+*/
+func (iterator *BinaryTreeIterator[T]) Left() (T, error) {
+	if iterator.currentNode == nil || !iterator.HasLeft() {
+		return iterator.zeroValue, errors.New("no left value available")
+	}
+
+	iterator.currentNode = iterator.currentNode.left
+
+	return iterator.currentNode.value, nil
+}
+
+/*
+Return the right value of the current node of the iterator. The iterator
+will automatically move to the right element
+*/
+func (iterator *BinaryTreeIterator[T]) Right() (T, error) {
+	if iterator.currentNode == nil || !iterator.HasRight() {
+		return iterator.zeroValue, errors.New("no right value available")
+	}
+
+	iterator.currentNode = iterator.currentNode.right
+
+	return iterator.currentNode.value, nil
+}
+
+/*
+Return the parent value of the current node of the iterator. The iterator
+will automatically move to the parent element
+*/
+func (iterator *BinaryTreeIterator[T]) Parent() (T, error) {
+	if iterator.currentNode == nil || !iterator.HasParent() {
+		return iterator.zeroValue, errors.New("no parent value available")
+	}
+
+	iterator.currentNode = iterator.currentNode.parent
+
+	return iterator.currentNode.value, nil
+}
+
+/*
+Return the current value of the current node of the iterator.
+*/
+func (iterator *BinaryTreeIterator[T]) Current() (T, error) {
+	if iterator.currentNode == nil {
+		return iterator.zeroValue, errors.New("no current value available")
+	}
+
+	return iterator.currentNode.value, nil
+}
+
+// ---- Node API ---- //
+
 /*
 Create a new node for the tree
 */
-func newNode[T any](value T) *Node[T] {
-	return &Node[T]{value: value}
+func newNode[T any](value T, parent *Node[T]) *Node[T] {
+	return &Node[T]{value: value, parent: parent}
 }
 
 func (node Node[T]) hasValue(value T, comparator comparator.Comparator[T]) bool {
@@ -49,25 +136,27 @@ func (node Node[T]) hasValue(value T, comparator comparator.Comparator[T]) bool 
 /*
 Insert a value in a node
 */
-func (node *Node[T]) insertValue(value T, comparator comparator.Comparator[T]) {
+func (node *Node[T]) insertValue(value T, comparator comparator.Comparator[T], parent *Node[T]) {
 	diff := comparator(node.value, value)
 
 	if diff < 0 {
 		// node.value < value, so create a node on the right
 		if node.right == nil {
-			node.right = newNode(value)
+			node.right = newNode(value, node)
 		} else {
-			node.right.insertValue(value, comparator)
+			node.right.insertValue(value, comparator, node)
 		}
 	} else if diff > 0 {
 		// node.value > value, so create a node on the left
 		if node.left == nil {
-			node.left = newNode(value)
+			node.left = newNode(value, node)
 		} else {
-			node.left.insertValue(value, comparator)
+			node.left.insertValue(value, comparator, node)
 		}
 	}
 }
+
+// ---- BinaryTree API ---- //
 
 /*
 Create a new Binary tree
@@ -83,9 +172,9 @@ Add values in the Tree
 func (tree *BinaryTree[T]) Add(values ...T) {
 	for _, value := range values {
 		if tree.root == nil {
-			tree.root = newNode(value)
+			tree.root = newNode(value, nil)
 		} else {
-			tree.root.insertValue(value, tree.comparator)
+			tree.root.insertValue(value, tree.comparator, tree.root)
 		}
 	}
 }
@@ -96,6 +185,10 @@ else false
 */
 func (tree BinaryTree[T]) Has(value T) bool {
 	return tree.root.hasValue(value, tree.comparator)
+}
+
+func (tree BinaryTree[T]) Iterator() *BinaryTreeIterator[T] {
+	return newIterator[T](tree)
 }
 
 /*
@@ -140,3 +233,5 @@ func (tree BinaryTree[T]) Min() (T, error) {
 
 	return min, nil
 }
+
+// MAP .??????
