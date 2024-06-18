@@ -6,6 +6,7 @@ import (
 	"sort"
 
 	"github.com/dterbah/gods/collection"
+	"github.com/dterbah/gods/iterable"
 	"github.com/dterbah/gods/list"
 	comparator "github.com/dterbah/gods/utils"
 )
@@ -24,6 +25,16 @@ type ArrayList[T any] struct {
 
 // Constants
 const growCapacityFactor = float32(2.0)
+
+func FromIterable[T any](iterable iterable.Iterable[T],
+	comparator comparator.Comparator[T]) *ArrayList[T] {
+	list := New(comparator)
+	iterable.ForEach(func(element T, index int) {
+		list.Add(element)
+	})
+
+	return list
+}
 
 // Public methods
 func New[T any](comparator comparator.Comparator[T], elements ...T) *ArrayList[T] {
@@ -317,9 +328,4 @@ To be true, the index should be < 0 or >= list size
 */
 func (list *ArrayList[T]) isOutOfBounds(index int) bool {
 	return index < 0 || index >= list.size
-}
-
-// Modules methods
-func From() {
-
 }

@@ -3,6 +3,7 @@ package arraylist
 import (
 	"testing"
 
+	"github.com/dterbah/gods/list/linkedlist"
 	comparator "github.com/dterbah/gods/utils"
 	"github.com/stretchr/testify/assert"
 )
@@ -134,6 +135,17 @@ func TestArrayList_Filter(t *testing.T) {
 
 	value, _ = newList.At(1)
 	assert.Equal(6, value)
+}
+
+func TestArrayList_FromIterable(t *testing.T) {
+	assert := assert.New(t)
+	expectedValues := []int{1, 2, 3}
+	linkedlist := linkedlist.New(comparator.IntComparator, expectedValues...)
+	list := FromIterable[int](linkedlist, comparator.IntComparator)
+
+	list.ForEach(func(element, index int) {
+		assert.Equal(expectedValues[index], element)
+	})
 }
 
 func TestArrayList_Index(t *testing.T) {
