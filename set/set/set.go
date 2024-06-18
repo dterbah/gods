@@ -10,8 +10,6 @@ import (
 	comparator "github.com/dterbah/gods/utils"
 )
 
-// @todo: Union, intersection, etc
-
 /*
 Struct that defines what a Set is. The Set can only store on occurence
 of a specific value

@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSet_Add(t *testing.T) {
+func TestSetAdd(t *testing.T) {
 	assert := assert.New(t)
 
 	set := New[int](comparator.IntComparator)
@@ -23,7 +23,7 @@ func TestSet_Add(t *testing.T) {
 	assert.Equal(3, set.Size())
 }
 
-func TestSet_AddAll(t *testing.T) {
+func TestSetAddAll(t *testing.T) {
 	assert := assert.New(t)
 	var collection collection.Collection[int] = arraylist.New(comparator.IntComparator, 5, 6)
 	set := New[int](comparator.IntComparator)
@@ -40,7 +40,7 @@ func TestSet_AddAll(t *testing.T) {
 	}
 }
 
-func TestSet_At(t *testing.T) {
+func TestSetAt(t *testing.T) {
 	assert := assert.New(t)
 	set := New[int](comparator.IntComparator, 1, 2, 4)
 
@@ -55,7 +55,7 @@ func TestSet_At(t *testing.T) {
 	assert.NotNil(err)
 }
 
-func TestSet_Clear(t *testing.T) {
+func TestSetClear(t *testing.T) {
 	assert := assert.New(t)
 	set := New[int](comparator.IntComparator, 1, 3, 4)
 	set.Clear()
@@ -63,7 +63,7 @@ func TestSet_Clear(t *testing.T) {
 	assert.Equal(0, set.Size())
 }
 
-func TestSet_Contains(t *testing.T) {
+func TestSetContains(t *testing.T) {
 	assert := assert.New(t)
 	set := New[int](comparator.IntComparator, 1, 3, 4)
 
@@ -73,7 +73,7 @@ func TestSet_Contains(t *testing.T) {
 	assert.False(set.Contains(2))
 }
 
-func TestSet_ContainsAll(t *testing.T) {
+func TestSetContainsAll(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 4)
 	collection := arraylist.New(comparator.IntComparator, 1, 2, 5)
@@ -85,7 +85,7 @@ func TestSet_ContainsAll(t *testing.T) {
 	assert.True(set.ContainsAll(collection))
 }
 
-func TestSet_Copy(t *testing.T) {
+func TestSetCopy(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 3)
 	copy := set.Copy()
@@ -98,7 +98,7 @@ func TestSet_Copy(t *testing.T) {
 	})
 }
 
-func TestSet_Diff(t *testing.T) {
+func TestSetDiff(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
 	otherSet := New(comparator.IntComparator, 1, 2, 5, 6)
@@ -113,7 +113,7 @@ func TestSet_Diff(t *testing.T) {
 	}
 }
 
-func TestSet_IndexOf(t *testing.T) {
+func TestSetIndexOf(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 4)
 
@@ -122,7 +122,7 @@ func TestSet_IndexOf(t *testing.T) {
 	assert.Equal(-1, set.IndexOf(9))
 }
 
-func TestSet_Intersection(t *testing.T) {
+func TestSetIntersection(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
 	otherSet := New(comparator.IntComparator, 1, 2, 5, 6)
@@ -137,7 +137,7 @@ func TestSet_Intersection(t *testing.T) {
 	}
 }
 
-func TestSet_IsEmpty(t *testing.T) {
+func TestSetIsEmpty(t *testing.T) {
 	assert := assert.New(t)
 
 	set := New[int](comparator.IntComparator)
@@ -149,7 +149,7 @@ func TestSet_IsEmpty(t *testing.T) {
 	assert.False(set.IsEmpty())
 }
 
-func TestSet_IsSubset(t *testing.T) {
+func TestSetIsSubset(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
 	otherSet := New(comparator.IntComparator, 1, 2)
@@ -161,12 +161,12 @@ func TestSet_IsSubset(t *testing.T) {
 
 }
 
-func TestSet_Print(t *testing.T) {
+func TestSetPrint(t *testing.T) {
 	set := New(comparator.IntComparator, 1, 2, 3)
 	set.Print()
 }
 
-func TestSet_Remove(t *testing.T) {
+func TestSetRemove(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
 
@@ -179,7 +179,7 @@ func TestSet_Remove(t *testing.T) {
 	assert.Equal(4, set.Size())
 }
 
-func TestSet_Union(t *testing.T) {
+func TestSetUnion(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)
 	otherSet := New(comparator.IntComparator, 1, 2, 5, 6)

@@ -274,7 +274,7 @@ func TestArrayListReverse(t *testing.T) {
 	})
 }
 
-func TestArrayList_Size(t *testing.T) {
+func TestArrayListSize(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 	list.Add(1, 2, 3)
