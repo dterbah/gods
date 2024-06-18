@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestBinaryTree_Add(t *testing.T) {
+func TestBinaryTreeAdd(t *testing.T) {
 	assert := assert.New(t)
 	tree := New(comparator.IntComparator)
 
@@ -20,7 +20,7 @@ func TestBinaryTree_Add(t *testing.T) {
 	assert.False(tree.Has(4))
 }
 
-func TestBinaryTree_Has(t *testing.T) {
+func TestBinaryTreeHas(t *testing.T) {
 	assert := assert.New(t)
 	tree := New(comparator.IntComparator)
 
@@ -34,7 +34,7 @@ func TestBinaryTree_Has(t *testing.T) {
 	assert.True(tree.Has(-2))
 }
 
-func TestBinaryTree_Min(t *testing.T) {
+func TestBinaryTreeMin(t *testing.T) {
 	assert := assert.New(t)
 	tree := New(comparator.IntComparator)
 
@@ -53,7 +53,7 @@ func TestBinaryTree_Min(t *testing.T) {
 	assert.Equal(-10, min)
 }
 
-func TestBinaryTree_Max(t *testing.T) {
+func TestBinaryTreeMax(t *testing.T) {
 	assert := assert.New(t)
 	tree := New(comparator.IntComparator)
 
@@ -70,7 +70,7 @@ func TestBinaryTree_Max(t *testing.T) {
 	assert.Equal(10, max)
 }
 
-func TestBinaryTreeIterator_Right(t *testing.T) {
+func TestBinaryTreeIteratorRight(t *testing.T) {
 	assert := assert.New(t)
 	tree := New(comparator.IntComparator)
 
@@ -96,7 +96,7 @@ func TestBinaryTreeIterator_Right(t *testing.T) {
 	assert.NotNil(err)
 }
 
-func TestBinaryTreeIterator_Left(t *testing.T) {
+func TestBinaryTreeIteratorLeft(t *testing.T) {
 	assert := assert.New(t)
 	tree := New(comparator.IntComparator)
 
@@ -120,7 +120,7 @@ func TestBinaryTreeIterator_Left(t *testing.T) {
 	}
 }
 
-func TestBinaryTreeIterator_Current(t *testing.T) {
+func TestBinaryTreeIteratorCurrent(t *testing.T) {
 	assert := assert.New(t)
 	tree := New(comparator.IntComparator)
 	iterator := tree.Iterator()
@@ -146,7 +146,7 @@ func TestBinaryTreeIterator_Current(t *testing.T) {
 	assert.Equal(-1, currentValue)
 }
 
-func TestBinaryTreeIterator_Parent(t *testing.T) {
+func TestBinaryTreeIteratorParent(t *testing.T) {
 	assert := assert.New(t)
 	tree := New(comparator.IntComparator)
 

@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestQueue_Clear(t *testing.T) {
+func TestQueueClear(t *testing.T) {
 	assert := assert.New(t)
 	queue := New[int](comparator.IntComparator)
 
@@ -18,7 +18,7 @@ func TestQueue_Clear(t *testing.T) {
 	assert.True(queue.IsEmpty())
 }
 
-func TestQueue_Clone(t *testing.T) {
+func TestQueueClone(t *testing.T) {
 	assert := assert.New(t)
 	queue := New[int](comparator.IntComparator)
 
@@ -31,7 +31,7 @@ func TestQueue_Clone(t *testing.T) {
 	})
 }
 
-func TestQueue_Contains(t *testing.T) {
+func TestQueueContains(t *testing.T) {
 	assert := assert.New(t)
 	queue := New[int](comparator.IntComparator)
 
@@ -43,7 +43,7 @@ func TestQueue_Contains(t *testing.T) {
 
 }
 
-func TestQueue_Dequeue(t *testing.T) {
+func TestQueueDequeue(t *testing.T) {
 	assert := assert.New(t)
 	queue := New[int](comparator.IntComparator)
 
@@ -60,7 +60,7 @@ func TestQueue_Dequeue(t *testing.T) {
 	assert.NotNil(err)
 }
 
-func TestQueue_Enqueue(t *testing.T) {
+func TestQueueEnqueue(t *testing.T) {
 	assert := assert.New(t)
 	queue := New[int](comparator.IntComparator)
 
@@ -75,7 +75,7 @@ func TestQueue_Enqueue(t *testing.T) {
 	}
 }
 
-func TestQueue_ForEach(t *testing.T) {
+func TestQueueForEach(t *testing.T) {
 	assert := assert.New(t)
 	queue := New[int](comparator.IntComparator)
 
@@ -87,7 +87,7 @@ func TestQueue_ForEach(t *testing.T) {
 	})
 }
 
-func TestQueue_FromIterable(t *testing.T) {
+func TestQueueFromIterable(t *testing.T) {
 	assert := assert.New(t)
 	values := []int{1, 2, 3}
 	list := arraylist.New(comparator.IntComparator, values...)
@@ -100,7 +100,7 @@ func TestQueue_FromIterable(t *testing.T) {
 	}
 }
 
-func TestQueue_IsEmpty(t *testing.T) {
+func TestQueueIsEmpty(t *testing.T) {
 	assert := assert.New(t)
 	queue := New[int](comparator.IntComparator)
 	assert.True(queue.IsEmpty())
@@ -112,14 +112,14 @@ func TestQueue_IsEmpty(t *testing.T) {
 	assert.True(queue.IsEmpty())
 }
 
-func TestQueue_Print(t *testing.T) {
+func TestQueuePrint(t *testing.T) {
 	queue := New[int](comparator.IntComparator)
 	queue.Enqueue(1, 2, 3)
 
 	queue.Print()
 }
 
-func TestQueue_Peek(t *testing.T) {
+func TestQueuePeek(t *testing.T) {
 	assert := assert.New(t)
 	queue := New[int](comparator.IntComparator)
 
@@ -132,7 +132,7 @@ func TestQueue_Peek(t *testing.T) {
 	assert.Nil(err)
 }
 
-func TestQueue_Size(t *testing.T) {
+func TestQueueSize(t *testing.T) {
 	assert := assert.New(t)
 	queue := New[int](comparator.IntComparator)
 	assert.Equal(0, queue.Size())

@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestArrayList_Add(t *testing.T) {
+func TestArrayListAdd(t *testing.T) {
 	assert := assert.New(t)
 
 	list := New[int](comparator.IntComparator)
@@ -28,7 +28,7 @@ func TestArrayList_Add(t *testing.T) {
 	}
 }
 
-func TestArrayList_At(t *testing.T) {
+func TestArrayListAt(t *testing.T) {
 	assert := assert.New(t)
 
 	list := New[int](comparator.IntComparator)
@@ -52,7 +52,7 @@ func TestArrayList_At(t *testing.T) {
 	assert.NotEqual(err, nil)
 }
 
-func TestArrayList_Clear(t *testing.T) {
+func TestArrayListClear(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 
@@ -62,7 +62,7 @@ func TestArrayList_Clear(t *testing.T) {
 	assert.True(list.IsEmpty())
 }
 
-func TestArrayList_AddAll(t *testing.T) {
+func TestArrayListAddAll(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 	list2 := New[int](comparator.IntComparator)
@@ -81,7 +81,7 @@ func TestArrayList_AddAll(t *testing.T) {
 	})
 }
 
-func TestArrayList_Contains(t *testing.T) {
+func TestArrayListContains(t *testing.T) {
 	assert := assert.New(t)
 
 	list := New[int](comparator.IntComparator)
@@ -91,7 +91,7 @@ func TestArrayList_Contains(t *testing.T) {
 	assert.False(list.Contains(-190))
 }
 
-func TestArrayList_ContainsAll(t *testing.T) {
+func TestArrayListContainsAll(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator, 1, 2, 3)
 
@@ -102,7 +102,7 @@ func TestArrayList_ContainsAll(t *testing.T) {
 	assert.False(list.ContainsAll(collection))
 }
 
-func TestArrayLis_Copy(t *testing.T) {
+func TestArrayListCopy(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator)
 
@@ -117,7 +117,7 @@ func TestArrayLis_Copy(t *testing.T) {
 	})
 }
 
-func TestArrayList_Filter(t *testing.T) {
+func TestArrayListFilter(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 
@@ -137,7 +137,7 @@ func TestArrayList_Filter(t *testing.T) {
 	assert.Equal(6, value)
 }
 
-func TestArrayList_FromIterable(t *testing.T) {
+func TestArrayListFromIterable(t *testing.T) {
 	assert := assert.New(t)
 	expectedValues := []int{1, 2, 3}
 	linkedlist := linkedlist.New(comparator.IntComparator, expectedValues...)
@@ -148,7 +148,7 @@ func TestArrayList_FromIterable(t *testing.T) {
 	})
 }
 
-func TestArrayList_Index(t *testing.T) {
+func TestArrayListIndex(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator)
 
@@ -157,7 +157,7 @@ func TestArrayList_Index(t *testing.T) {
 	assert.Equal(1, list.Index(0))
 }
 
-func TestArrayList_IndexOf(t *testing.T) {
+func TestArrayListIndexOf(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 
@@ -172,7 +172,7 @@ func TestArrayList_IndexOf(t *testing.T) {
 	assert.Equal(expectedValue, index)
 }
 
-func TestArrayList_IsEmpty(t *testing.T) {
+func TestArrayListIsEmpty(t *testing.T) {
 	assert := assert.New(t)
 
 	list := New[int](comparator.IntComparator)
@@ -183,7 +183,7 @@ func TestArrayList_IsEmpty(t *testing.T) {
 	assert.False(list.IsEmpty())
 }
 
-func TestArrayList_New(t *testing.T) {
+func TestArrayListNew(t *testing.T) {
 	assert := assert.New(t)
 
 	list := New(comparator.IntComparator, 1, 2, 3)
@@ -198,12 +198,12 @@ func TestArrayList_New(t *testing.T) {
 	}
 }
 
-func TestArrayList_Print(t *testing.T) {
+func TestArrayListPrint(t *testing.T) {
 	list := New(comparator.IntComparator, 1, 2, 3)
 	list.Print()
 }
 
-func TestArryList_Remove(t *testing.T) {
+func TestArryListRemove(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 	list.Add(1, 2, 3)
@@ -213,7 +213,7 @@ func TestArryList_Remove(t *testing.T) {
 	assert.Equal(2, list.Size())
 }
 
-func TestArrayList_RemoveAt(t *testing.T) {
+func TestArrayListRemoveAt(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 
@@ -239,7 +239,7 @@ func TestArrayList_RemoveAt(t *testing.T) {
 	assert.False(isRemoved)
 }
 
-func TestArrayList_ReplaceAt(t *testing.T) {
+func TestArrayListReplaceAt(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 	expectedValue := 90
@@ -259,7 +259,7 @@ func TestArrayList_ReplaceAt(t *testing.T) {
 	assert.False(isReplaced)
 }
 
-func TestArrayList_Reverse(t *testing.T) {
+func TestArrayListReverse(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 
@@ -282,7 +282,7 @@ func TestArrayList_Size(t *testing.T) {
 	assert.Equal(expectedSize, list.Size())
 }
 
-func TestArrayList_Some(t *testing.T) {
+func TestArrayListSome(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 	list.Add(1, 2, 3)
@@ -296,7 +296,7 @@ func TestArrayList_Some(t *testing.T) {
 	}))
 }
 
-func TestArrayList_Sort(t *testing.T) {
+func TestArrayListSort(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 
@@ -311,7 +311,7 @@ func TestArrayList_Sort(t *testing.T) {
 	})
 }
 
-func TestArrayList_SubList(t *testing.T) {
+func TestArrayListSubList(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 

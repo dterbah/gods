@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestStack_Clear(t *testing.T) {
+func TestStackClear(t *testing.T) {
 	assert := assert.New(t)
 	stack := New(comparator.IntComparator)
 	stack.Push(1, 2, 3)
@@ -16,7 +16,7 @@ func TestStack_Clear(t *testing.T) {
 	assert.True(stack.IsEmpty())
 }
 
-func TestStack_Copy(t *testing.T) {
+func TestStackCopy(t *testing.T) {
 	assert := assert.New(t)
 	stack := New(comparator.IntComparator)
 	stack.Push(1, 2, 3)
@@ -33,7 +33,7 @@ func TestStack_Copy(t *testing.T) {
 	}
 }
 
-func TestStack_FromIterable(t *testing.T) {
+func TestStackFromIterable(t *testing.T) {
 	assert := assert.New(t)
 	list := arraylist.New(comparator.IntComparator, 1, 2, 3)
 	stack := FromIterable(list, comparator.IntComparator)
@@ -47,7 +47,7 @@ func TestStack_FromIterable(t *testing.T) {
 	}
 }
 
-func TestStack_Push(t *testing.T) {
+func TestStackPush(t *testing.T) {
 	assert := assert.New(t)
 	stack := New(comparator.IntComparator)
 	stack.Push(1, 2, 3)
@@ -55,7 +55,7 @@ func TestStack_Push(t *testing.T) {
 	assert.False(stack.IsEmpty())
 }
 
-func TestStack_Contains(t *testing.T) {
+func TestStackContains(t *testing.T) {
 	assert := assert.New(t)
 	stack := New(comparator.IntComparator)
 	stack.Push(1, 2, 3)
@@ -68,7 +68,7 @@ func TestStack_Contains(t *testing.T) {
 	assert.False(stack.Contains(4))
 }
 
-func TestStack_IsEmpty(t *testing.T) {
+func TestStackIsEmpty(t *testing.T) {
 	assert := assert.New(t)
 	stack := New(comparator.IntComparator)
 
@@ -77,7 +77,7 @@ func TestStack_IsEmpty(t *testing.T) {
 	assert.False(stack.IsEmpty())
 }
 
-func TestStack_Peek(t *testing.T) {
+func TestStackPeek(t *testing.T) {
 	assert := assert.New(t)
 	stack := New(comparator.IntComparator)
 
@@ -101,7 +101,7 @@ func TestStack_Peek(t *testing.T) {
 	assert.Nil(err)
 }
 
-func TestStack_Pop(t *testing.T) {
+func TestStackPop(t *testing.T) {
 	assert := assert.New(t)
 	stack := New(comparator.IntComparator)
 
@@ -125,13 +125,13 @@ func TestStack_Pop(t *testing.T) {
 	assert.Nil(err)
 }
 
-func TestStack_Print(t *testing.T) {
+func TestStackPrint(t *testing.T) {
 	stack := New(comparator.IntComparator)
 	stack.Push(1, 2, 3)
 	stack.Print()
 }
 
-func TestStack_Size(t *testing.T) {
+func TestStackSize(t *testing.T) {
 	assert := assert.New(t)
 	stack := New(comparator.IntComparator)
 	assert.Equal(0, stack.Size())

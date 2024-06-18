@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCircularBuffer_New(t *testing.T) {
+func TestCircularBufferNew(t *testing.T) {
 	assert := assert.New(t)
 	buffer := New[int](-1)
 
@@ -16,7 +16,7 @@ func TestCircularBuffer_New(t *testing.T) {
 	assert.NotNil(buffer)
 }
 
-func TestCircularBuffer_Enqueue(t *testing.T) {
+func TestCircularBufferEnqueue(t *testing.T) {
 	assert := assert.New(t)
 	buffer := New[int](3)
 
@@ -27,7 +27,7 @@ func TestCircularBuffer_Enqueue(t *testing.T) {
 	assert.NotNil(buffer.Enqueue(4))
 }
 
-func TestCircularBuffer_Dequeue(t *testing.T) {
+func TestCircularBufferDequeue(t *testing.T) {
 	assert := assert.New(t)
 	buffer := New[int](3)
 
@@ -45,7 +45,7 @@ func TestCircularBuffer_Dequeue(t *testing.T) {
 	assert.NotNil(err)
 }
 
-func TestCircularBuffer_IsEmpty(t *testing.T) {
+func TestCircularBufferIsEmpty(t *testing.T) {
 	assert := assert.New(t)
 	buffer := New[int](1)
 
@@ -54,7 +54,7 @@ func TestCircularBuffer_IsEmpty(t *testing.T) {
 	assert.False(buffer.IsEmpty())
 }
 
-func TestCircularBuffer_IsFull(t *testing.T) {
+func TestCircularBufferIsFull(t *testing.T) {
 	assert := assert.New(t)
 	buffer := New[int](1)
 	assert.False(buffer.IsFull())

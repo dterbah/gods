@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestLinkedList_AddTest(t *testing.T) {
+func TestLinkedListAddTest(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 
@@ -19,7 +19,7 @@ func TestLinkedList_AddTest(t *testing.T) {
 	assert.Equal(2, list.tail.value)
 }
 
-func TestLinkedList_AddAll(t *testing.T) {
+func TestLinkedListAddAll(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator, 1, 2, 3)
 	list.AddAll(New(comparator.IntComparator, 4, 5, 6))
@@ -35,7 +35,7 @@ func TestLinkedList_AddAll(t *testing.T) {
 	}
 }
 
-func TestLinkedList_AtTest(t *testing.T) {
+func TestLinkedListAt(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 
@@ -62,7 +62,7 @@ func TestLinkedList_AtTest(t *testing.T) {
 	assert.NotNil(err)
 }
 
-func TestLinkedList_ClearTest(t *testing.T) {
+func TestLinkedListClear(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3)
 
@@ -71,7 +71,7 @@ func TestLinkedList_ClearTest(t *testing.T) {
 	assert.Equal(0, list.Size())
 }
 
-func TestLinkedList_Contains(t *testing.T) {
+func TestLinkedListContains(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3)
 
@@ -84,7 +84,7 @@ func TestLinkedList_Contains(t *testing.T) {
 	assert.False(list.Contains(10))
 }
 
-func TestLinkedList_ContainsAll(t *testing.T) {
+func TestLinkedListContainsAll(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator, 1, 2, 3)
 	collection := New(comparator.IntComparator, 1, 2)
@@ -94,7 +94,7 @@ func TestLinkedList_ContainsAll(t *testing.T) {
 	assert.False(list.ContainsAll(collection))
 }
 
-func TestLinkedList_Copy(t *testing.T) {
+func TestLinkedListCopy(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator, 1, 2, 3)
 
@@ -106,7 +106,7 @@ func TestLinkedList_Copy(t *testing.T) {
 	})
 }
 
-func TestLinkedList_Filter(t *testing.T) {
+func TestLinkedListFilter(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3)
 
@@ -121,7 +121,7 @@ func TestLinkedList_Filter(t *testing.T) {
 	assert.Equal(2, value)
 }
 
-func TestLinkedList_ForEach(t *testing.T) {
+func TestLinkedListForEach(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator, 1, 2, 3)
 	expectedValues := []int{1, 2, 3}
@@ -131,7 +131,7 @@ func TestLinkedList_ForEach(t *testing.T) {
 	})
 }
 
-func TestLinkedList_FromIterable(t *testing.T) {
+func TestLinkedListFromIterable(t *testing.T) {
 	assert := assert.New(t)
 	list := arraylist.New(comparator.IntComparator, 1, 2, 3)
 
@@ -148,7 +148,7 @@ func TestLinkedList_FromIterable(t *testing.T) {
 	}
 }
 
-func TestLinkedList_HeadTest(t *testing.T) {
+func TestLinkedListHead(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 	head := list.Head()
@@ -159,7 +159,7 @@ func TestLinkedList_HeadTest(t *testing.T) {
 	assert.Equal(1, list.Head())
 }
 
-func TestLinkedList_IndexOf(t *testing.T) {
+func TestLinkedListIndexOf(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 
@@ -172,7 +172,7 @@ func TestLinkedList_IndexOf(t *testing.T) {
 	assert.Equal(-1, list.IndexOf(4))
 }
 
-func TestLinkedList_IsEmpty(t *testing.T) {
+func TestLinkedListIsEmpty(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 
@@ -182,7 +182,7 @@ func TestLinkedList_IsEmpty(t *testing.T) {
 	assert.False(list.IsEmpty())
 }
 
-func TestLinkedList_nodeAt(t *testing.T) {
+func TestLinkedListNodeAt(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator, 1, 2, 3)
 
@@ -200,12 +200,12 @@ func TestLinkedList_nodeAt(t *testing.T) {
 	assert.Nil(node)
 }
 
-func TestLinkedList_Print(t *testing.T) {
+func TestLinkedListPrint(t *testing.T) {
 	list := New(comparator.IntComparator, 1, 2, 3)
 	list.Print()
 }
 
-func TestLinkedList_Remove(t *testing.T) {
+func TestLinkedListRemove(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)
 	list.Remove(1)
@@ -239,7 +239,7 @@ func TestLinkedList_Remove(t *testing.T) {
 	})
 }
 
-func TestLinkedTest_RemoveAt(t *testing.T) {
+func TestLinkedTestRemoveAt(t *testing.T) {
 	assert := assert.New(t)
 
 	list := New[int](comparator.IntComparator)
@@ -258,7 +258,7 @@ func TestLinkedTest_RemoveAt(t *testing.T) {
 	})
 }
 
-func TestLinkedList_ReplaceAt(t *testing.T) {
+func TestLinkedListReplaceAt(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3, 1)
 
@@ -280,7 +280,7 @@ func TestLinkedList_ReplaceAt(t *testing.T) {
 	assert.Equal(90, value)
 }
 
-func TestLinkedList_Reverse(t *testing.T) {
+func TestLinkedListReverse(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3)
 
@@ -301,7 +301,7 @@ func TestLinkedList_Reverse(t *testing.T) {
 	assert.Equal(0, list.Size())
 }
 
-func TestLinkedList_Some(t *testing.T) {
+func TestLinkedListSome(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator, 1, 2, 3, 4)
 
@@ -318,7 +318,7 @@ func TestLinkedList_Some(t *testing.T) {
 	assert.False(hasNegativeNumber)
 }
 
-func TestLinkedList_Sort(t *testing.T) {
+func TestLinkedListSort(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator, 1, 4, 3, 2, 7, -1)
 	list.Sort()
@@ -328,7 +328,7 @@ func TestLinkedList_Sort(t *testing.T) {
 	})
 }
 
-func TestLinkedList_SubList(t *testing.T) {
+func TestLinkedListSubList(t *testing.T) {
 	assert := assert.New(t)
 	list := New(comparator.IntComparator, 1, 2, 3)
 
@@ -352,7 +352,7 @@ func TestLinkedList_SubList(t *testing.T) {
 	assert.Equal(3, value)
 }
 
-func TestLinkedList_TailTest(t *testing.T) {
+func TestLinkedListTailTest(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3)
 	assert.Equal(3, list.Tail())
