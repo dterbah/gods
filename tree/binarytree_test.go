@@ -176,3 +176,28 @@ func TestBinaryTreeIteratorParent(t *testing.T) {
 		index++
 	}
 }
+
+func TestBinaryTreeRemove(t *testing.T) {
+	assert := assert.New(t)
+	tree := New(comparator.IntComparator)
+
+	assert.False(tree.Remove(1))
+
+	tree.Add(1)
+	assert.True(tree.Remove(1))
+	assert.False(tree.Remove(1))
+	assert.False(tree.Has(1))
+
+	tree.Add(1, 3)
+	assert.True(tree.Remove(3))
+	assert.False(tree.Remove(3))
+
+	tree.Add(-1, -2, -3)
+	assert.True(tree.Remove(-2))
+	assert.True(tree.Remove(-1))
+
+	tree = New(comparator.IntComparator)
+	tree.Add(3, 2, 1, 6, 4, 7, 5)
+
+	assert.True(tree.Remove(6))
+}

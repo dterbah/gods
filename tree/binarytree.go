@@ -184,6 +184,10 @@ Check if a value is present in the tree. Return true if the value is present,
 else false
 */
 func (tree BinaryTree[T]) Has(value T) bool {
+	if tree.root == nil {
+		return false
+	}
+
 	return tree.root.hasValue(value, tree.comparator)
 }
 
@@ -232,6 +236,63 @@ func (tree BinaryTree[T]) Min() (T, error) {
 	}
 
 	return min, nil
+}
+
+/*
+Remove the specified element in the tree if it exists
+*/ /*
+Remove the specified element in the tree if it exists
+Return true if the value was removed, else false
+*/
+func (tree *BinaryTree[T]) Remove(value T) bool {
+	// Helper function to find the minimum value node in a subtree
+	findMin := func(node *Node[T]) *Node[T] {
+		current := node
+		for current.left != nil {
+			current = current.left
+		}
+		return current
+	}
+
+	// Helper function to remove a node and return the new subtree root and a boolean indicating if removal occurred
+	var removeNode func(node *Node[T], value T) (*Node[T], bool)
+	removeNode = func(node *Node[T], value T) (*Node[T], bool) {
+		if node == nil {
+			return nil, false
+		}
+
+		diff := tree.comparator(node.value, value)
+		if diff > 0 {
+			var removed bool
+			node.left, removed = removeNode(node.left, value)
+			return node, removed
+		} else if diff < 0 {
+			var removed bool
+			node.right, removed = removeNode(node.right, value)
+			return node, removed
+		} else {
+			// Node with only one child or no child
+			if node.left == nil {
+				temp := node.right
+				node = nil
+				return temp, true
+			} else if node.right == nil {
+				temp := node.left
+				node = nil
+				return temp, true
+			}
+
+			// Node with two children: Get the inorder successor (smallest in the right subtree)
+			temp := findMin(node.right)
+			node.value = temp.value
+			node.right, _ = removeNode(node.right, temp.value)
+			return node, true
+		}
+	}
+
+	var removed bool
+	tree.root, removed = removeNode(tree.root, value)
+	return removed
 }
 
 // MAP .??????
