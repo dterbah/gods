@@ -3,7 +3,7 @@
 This library implements multiple data structures than can be used in many contexts. It provides lists, queues, stack and much more !
 Get ready to store and manipulate your data 📊.
 
-Here are a summary to access to some examples for each structures. Be free to access directly to the code in the folder `examples`.
+Here are a summary to access to some examples for each structures.
 
 ![CI](https://github.com/dterbah/gods/actions/workflows/go-test.yml/badge.svg)
 [![codecov](https://codecov.io/gh/dterbah/gods/branch/main/graph/badge.svg)](https://codecov.io/gh/dterbah/gods)
@@ -22,6 +22,7 @@ Here are a summary to access to some examples for each structures. Be free to ac
 4. [CircularBuffer](#circularbuffer)
 5. [Queue](#queue)
 6. [Stack](#stack)
+7. [BinaryTree](#binarytree)
 
 # Installation
 
@@ -179,7 +180,7 @@ import (
 )
 
 stack := stack.New[int](comparator.IntComparator)
-stack.Push(2, 3) // [1, 2, 3]
+stack.Push(2, 3) // [2, 3]
 stack.Pop() // 3, nil
 stack.Peek() // 2, nil
 stack.Contains(2) // True
@@ -190,4 +191,26 @@ stack.Clear() // []
 
 list := arraylist.New(comparator.IntComparator, 6, 7, 8)
 stack = stack.FromIterable(list, comparator.IntComparator) // [6, 7, 8]
+```
+
+## BinaryTree
+
+```golang
+import (
+    "github.com/dterbah/gods/tree"
+    comparator "github.com/dterbah/gods/utils"
+)
+
+tree := tree.New(comparator.IntComparator)
+tree.Add(1, 2, 3) //
+tree.has(1) // True
+tree.Min() // 1
+tree.Max() // 3
+it := tree.Iterator()
+for it.HasRight() {
+    value, err := it.Right()
+}
+
+tree.Remove(1) // True
+tree.Remove(-1) // False
 ```

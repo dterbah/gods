@@ -197,7 +197,7 @@ func TestBinaryTreeRemove(t *testing.T) {
 	assert.True(tree.Remove(-1))
 
 	tree = New(comparator.IntComparator)
-	tree.Add(3, 2, 1, 6, 4, 7, 5)
+	tree.Add(3, 2, 1, 6, 4, 7, 5, -1)
 
 	assert.True(tree.Remove(6))
 }
