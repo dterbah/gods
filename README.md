@@ -21,6 +21,7 @@ Here are a summary to access to some examples for each structures. Be free to ac
 3. [Set](#Set)
 4. [CircularBuffer](#circularbuffer)
 5. [Queue](#queue)
+6. [Stack](#stack)
 
 # Installation
 
@@ -153,9 +154,11 @@ buffer.Dequeue() // (0, err)
 ```golang
 import (
     "github.com/dterbah/gods/queue"
+    "github.com/dterbah/gods/list/arraylist"
+    comparator "github.com/dterbah/gods/utils"
 )
 
-queue := queue.New[int]()
+queue := queue.New[int](comparator.IntComparator)
 queue.Enqueue(1) // [1]
 queue.Dequeue() // 1, nil
 queue.Dequeue() // 0, error !
@@ -166,5 +169,31 @@ queue.Copy() // [1, 2, 3]
 queue.Size() // 3
 queue.Peek() // 1, nil
 queue.Clear() // []
+list := arraylist.New(comparator.IntComparator, 6, 7, 8)
+queue = queue.FromIterable(list, comparator.IntComparator) // [6, 7, 8]
+
+```
+
+## Stack
+
+```golang
+import (
+    "github.com/dterbah/gods/stack"
+    "github.com/dterbah/gods/list/arraylist"
+    comparator "github.com/dterbah/gods/utils"
+)
+
+stack := stack.New[int](comparator.IntComparator)
+stack.Push(2, 3) // [1, 2, 3]
+stack.Pop() // 3, nil
+stack.Peek() // 2, nil
+stack.Contains(2) // True
+stack.IsEmpty() // False
+stack.Size() // 1
+stack.Copy() // [2]
+stack.Clear() // []
+
+list := arraylist.New(comparator.IntComparator, 6, 7, 8)
+stack = stack.FromIterable(list, comparator.IntComparator) // [6, 7, 8]
 
 ```
