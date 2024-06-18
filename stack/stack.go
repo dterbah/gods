@@ -101,7 +101,7 @@ func (stack Stack[T]) Print() {
 		}
 	})
 
-	fmt.Print("]")
+	fmt.Println("]")
 }
 
 /*
