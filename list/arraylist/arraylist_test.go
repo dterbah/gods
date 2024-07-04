@@ -337,3 +337,18 @@ func TestArrayListSubList(t *testing.T) {
 	newList = list.SubList(3, 1)
 	assert.Equal(list, newList)
 }
+
+func TestArrayListToArray(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator)
+	list.Add(1, 2, 3)
+
+	elements := list.ToArray()
+
+	assert.Equal(3, len(elements))
+
+	for index, element := range elements {
+		item, _ := list.At(index)
+		assert.Equal(item, element)
+	}
+}

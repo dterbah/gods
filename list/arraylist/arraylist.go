@@ -303,6 +303,15 @@ func (list *ArrayList[T]) Swap(i, j int) {
 	list.elements[i], list.elements[j] = list.elements[j], list.elements[i]
 }
 
+func (list *ArrayList[T]) ToArray() []T {
+	elements := []T{}
+	list.ForEach(func(element T, index int) {
+		elements = append(elements, element)
+	})
+
+	return elements
+}
+
 // Private methods
 
 // Resize the size of the list

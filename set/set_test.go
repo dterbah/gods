@@ -179,6 +179,20 @@ func TestSetRemove(t *testing.T) {
 	assert.Equal(4, set.Size())
 }
 
+func TestSetToArray(t *testing.T) {
+	assert := assert.New(t)
+	set := New[int](comparator.IntComparator, 1, 2, 4)
+
+	elements := set.ToArray()
+	expectedElements := []int{1, 2, 4}
+
+	assert.Equal(3, len(elements))
+
+	for index, el := range expectedElements {
+		assert.Equal(el, elements[index])
+	}
+}
+
 func TestSetUnion(t *testing.T) {
 	assert := assert.New(t)
 	set := New(comparator.IntComparator, 1, 2, 3, 6, 9)

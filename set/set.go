@@ -6,7 +6,6 @@ import (
 	"github.com/dterbah/gods/collection"
 	"github.com/dterbah/gods/list"
 	"github.com/dterbah/gods/list/arraylist"
-	"github.com/dterbah/gods/set"
 	comparator "github.com/dterbah/gods/utils"
 )
 
@@ -90,7 +89,7 @@ func (set Set[T]) ContainsAll(collection collection.Collection[T]) bool {
 *
 Create a copy of the current list
 */
-func (set *Set[T]) Copy() set.BasicSet[T] {
+func (set *Set[T]) Copy() BasicSet[T] {
 	newSet := New[T](set.comparator)
 
 	set.elements.ForEach(func(element T, index int) {
@@ -100,7 +99,7 @@ func (set *Set[T]) Copy() set.BasicSet[T] {
 	return newSet
 }
 
-func (set *Set[T]) Diff(otherSet set.BasicSet[T]) set.BasicSet[T] {
+func (set *Set[T]) Diff(otherSet BasicSet[T]) BasicSet[T] {
 	newSet := New(set.comparator)
 
 	set.ForEach(func(element T, index int) {
@@ -127,7 +126,7 @@ func (set Set[T]) IndexOf(element T) int {
 	return set.elements.IndexOf(element)
 }
 
-func (set *Set[T]) IsSubset(otherSet set.BasicSet[T]) bool {
+func (set *Set[T]) IsSubset(otherSet BasicSet[T]) bool {
 	for i := 0; i < otherSet.Size(); i++ {
 		value, _ := otherSet.At(i)
 		if !set.Contains(value) {
@@ -142,7 +141,7 @@ func (set *Set[T]) IsSubset(otherSet set.BasicSet[T]) bool {
 Compute the intersection between the current set and the one passed in parameter.
 The result is equivalent of A ∩ B
 */
-func (set *Set[T]) Intersection(otherSet set.BasicSet[T]) set.BasicSet[T] {
+func (set *Set[T]) Intersection(otherSet BasicSet[T]) BasicSet[T] {
 	newSet := New(set.comparator)
 
 	set.ForEach(func(element T, index int) {
@@ -178,11 +177,15 @@ func (set *Set[T]) Remove(element T) {
 	set.elements.Remove(element)
 }
 
+func (set *Set[T]) ToArray() []T {
+	return set.elements.ToArray()
+}
+
 /*
 Compute the union between the current set and the one passed in parameter.
 The result is equivalent of A ∪ B
 */
-func (set *Set[T]) Union(otherSet set.BasicSet[T]) set.BasicSet[T] {
+func (set *Set[T]) Union(otherSet BasicSet[T]) BasicSet[T] {
 	newSet := New(set.comparator)
 
 	set.ForEach(func(element T, index int) {

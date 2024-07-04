@@ -363,3 +363,17 @@ func TestLinkedListTailTest(t *testing.T) {
 	list = New(comparator.IntComparator)
 	assert.Equal(0, list.Tail())
 }
+
+func TestLinkedListToArray(t *testing.T) {
+	assert := assert.New(t)
+	list := New[int](comparator.IntComparator, 1, 2, 3)
+
+	elements := list.ToArray()
+
+	assert.Equal(3, len(elements))
+	expectedElements := []int{1, 2, 3}
+
+	for index, el := range expectedElements {
+		assert.Equal(el, elements[index])
+	}
+}

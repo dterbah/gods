@@ -353,6 +353,16 @@ func splitList[T any](head *Node[T]) (*Node[T], *Node[T]) {
 	return head, slow
 }
 
+func (list *LinkedList[T]) ToArray() []T {
+	elements := []T{}
+
+	list.ForEach(func(element T, index int) {
+		elements = append(elements, element)
+	})
+
+	return elements
+}
+
 func mergeLists[T any](left *Node[T], right *Node[T], comparator comparator.Comparator[T]) *Node[T] {
 	if left == nil {
 		return right

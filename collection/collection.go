@@ -56,4 +56,9 @@ type Collection[T any] interface {
 		Retrieve the size of the list
 	*/
 	Size() int
+
+	/*
+		Return array representation of the collection
+	*/
+	ToArray() []T
 }
