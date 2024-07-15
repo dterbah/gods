@@ -12,6 +12,8 @@ Here are a summary to access to some examples for each structures.
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=dterbah_gods&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=dterbah_gods)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=dterbah_gods&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=dterbah_gods)
 
+<img src="./assets/logo.webp" width="150" />
+
 # Table of Contents
 
 1. [Installation](#installation)
