@@ -19,6 +19,11 @@ type List[T any] interface {
 	Copy() List[T]
 
 	/*
+		Check if all the elements matchs with the callback in parameter
+	*/
+	Every(callback func(element T, index int) bool) bool
+
+	/*
 		Filter the list according to the specified callback passed in parameter
 	*/
 	Filter(callback func(element T) bool) List[T]

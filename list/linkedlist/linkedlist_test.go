@@ -106,6 +106,21 @@ func TestLinkedListCopy(t *testing.T) {
 	})
 }
 
+func TestLinkedListEvery(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 2, 4, 6)
+
+	assert.True(list.Every(func(element, index int) bool {
+		return element%2 == 0
+	}))
+
+	list.Add(1, 3, 5)
+
+	assert.False(list.Every(func(element, index int) bool {
+		return element%2 == 0
+	}))
+}
+
 func TestLinkedListFilter(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator, 1, 2, 3)

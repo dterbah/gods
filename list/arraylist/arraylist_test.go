@@ -117,6 +117,18 @@ func TestArrayListCopy(t *testing.T) {
 	})
 }
 
+func TestArrayListEvery(t *testing.T) {
+	assert := assert.New(t)
+	list := New(comparator.IntComparator, 1, 2, 3)
+	assert.True(list.Every(func(element, index int) bool {
+		return element < 10
+	}))
+
+	assert.False(list.Every(func(element, index int) bool {
+		return element > 10
+	}))
+}
+
 func TestArrayListFilter(t *testing.T) {
 	assert := assert.New(t)
 	list := New[int](comparator.IntComparator)

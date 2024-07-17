@@ -123,6 +123,16 @@ func (list *ArrayList[T]) Copy() list.List[T] {
 	return newList
 }
 
+func (list ArrayList[T]) Every(callback func(element T, index int) bool) bool {
+	result := true
+
+	list.ForEach(func(element T, index int) {
+		result = result && callback(element, index)
+	})
+
+	return result
+}
+
 /*
 Filter the list according to the specified callback passed in parameter.
 It will return a new List that match the filter

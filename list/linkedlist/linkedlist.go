@@ -150,6 +150,16 @@ func (list *LinkedList[T]) Copy() list.List[T] {
 	return newList
 }
 
+func (list LinkedList[T]) Every(callback func(element T, index int) bool) bool {
+	result := true
+
+	list.ForEach(func(element T, index int) {
+		result = result && callback(element, index)
+	})
+
+	return result
+}
+
 /*
 Return new list with elements matching the function passed in parameter
 */
